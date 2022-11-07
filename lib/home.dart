@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'interactive_map.dart';
+import 'map/interactive_map.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

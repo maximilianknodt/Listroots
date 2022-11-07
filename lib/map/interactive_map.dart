@@ -1,24 +1,39 @@
-import 'dart:math';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:map/map.dart';
 import 'package:latlng/latlng.dart';
+import 'package:map/map.dart';
+
+import 'map_tile_layer.dart';
+import 'tile_url_builder/osm_tile_url_builder.dart';
 
 class InteractiveMap extends StatefulWidget {
-  const InteractiveMap({Key? key}) : super(key: key);
+  final LatLng location;
+  final double zoom;
+  final Function(LatLng location)? onTap;
+
+  const InteractiveMap({
+    Key? key,
+    this.location = const LatLng(52.283954, 8.0225185),
+    this.zoom = 15,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   State<InteractiveMap> createState() => _InteractiveMapState();
 }
 
 class _InteractiveMapState extends State<InteractiveMap> {
-  final MapController controller = MapController(
-    location: const LatLng(52.283954, 8.0225185),
-    zoom: 15,
-  );
+  late final MapController controller;
+
+  @override
+  void initState() {
+    controller = MapController(
+      location: widget.location,
+      zoom: widget.zoom,
+    );
+    super.initState();
+  }
 
   void _onDoubleTap(MapTransformer transformer, Offset position) {
     const delta = 0.5;
@@ -66,20 +81,8 @@ class _InteractiveMapState extends State<InteractiveMap> {
           onScaleStart: _onScaleStart,
           onScaleUpdate: (details) => _onScaleUpdate(details, transformer),
           onTapUp: (details) {
-            final location = transformer.toLatLng(details.localPosition);
-
-            //final clicked = transformer.fromLatLngToXYCoords(location);
-            //print('${location.longitude}, ${location.latitude}');
-            //print('${clicked.dx}, ${clicked.dy}');
-            //print('${details.localPosition.dx}, ${details.localPosition.dy}');
-
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                content: Text(
-                    'You have clicked on (${location.longitude}, ${location.latitude}).'),
-              ),
-            );
+            LatLng location = transformer.toLatLng(details.localPosition);
+            widget.onTap?.call(location);
           },
           child: Listener(
             behavior: HitTestBehavior.opaque,
@@ -93,48 +96,13 @@ class _InteractiveMapState extends State<InteractiveMap> {
               }
             },
             child: Stack(
-              children: [
+              children: const [
                 MapTileLayer(
-                  tileUrlBuilder: (x, y, z) {
-                    return 'https://a.tile.openstreetmap.org/$z/$x/$y.png';
-                  },
+                  tileUrlBuilder: OSMTileUrlBuilder(),
                 ),
               ],
             ),
           ),
-        );
-      },
-    );
-  }
-}
-
-class MapTileLayer extends StatelessWidget {
-  const MapTileLayer({
-    Key? key,
-    required this.tileUrlBuilder,
-  }) : super(key: key);
-
-  final String Function(int, int, int) tileUrlBuilder;
-
-  @override
-  Widget build(BuildContext context) {
-    return TileLayer(
-      builder: (context, x, y, z) {
-        final tilesInZoom = pow(2.0, z).floor();
-
-        while (x < 0) {
-          x += tilesInZoom;
-        }
-        while (y < 0) {
-          y += tilesInZoom;
-        }
-
-        x %= tilesInZoom;
-        y %= tilesInZoom;
-
-        return CachedNetworkImage(
-          imageUrl: tileUrlBuilder(x, y, z),
-          fit: BoxFit.cover,
         );
       },
     );
