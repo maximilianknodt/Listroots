@@ -68,8 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(
-              height: 400,
+            Flexible(
               child: InteractiveMap(),
             ),
             const Text(

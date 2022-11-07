@@ -7,12 +7,14 @@ import 'package:map/map.dart';
 import 'tile_url_builder/tile_url_builder.dart';
 
 class MapTileLayer extends StatelessWidget {
-  const MapTileLayer({
+  final TileUrlBuilder tileUrlBuilder;
+
+  // can't be const, because it needs to rebuild when the controller changes
+  // ignore: prefer_const_constructors_in_immutables
+  MapTileLayer({
     Key? key,
     required this.tileUrlBuilder,
   }) : super(key: key);
-
-  final TileUrlBuilder tileUrlBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,15 @@ class MapTileLayer extends StatelessWidget {
         x %= tilesInZoom;
         y %= tilesInZoom;
 
-        return CachedNetworkImage(
-          imageUrl: tileUrlBuilder.call(x, y, z),
-          fit: BoxFit.cover,
+        return ColorFiltered(
+          colorFilter: const ColorFilter.mode(
+            Color.fromARGB(255, 255, 255, 255),
+            BlendMode.saturation,
+          ),
+          child: CachedNetworkImage(
+            imageUrl: tileUrlBuilder.call(x, y, z),
+            fit: BoxFit.cover,
+          ),
         );
       },
     );
