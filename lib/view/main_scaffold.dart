@@ -21,15 +21,19 @@ class MainScaffold extends StatelessWidget {
             }
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+          ),
+        ],
       ),
       body: child,
       bottomNavigationBar: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, state) {
           return BottomNavigationBar(
-            selectedItemColor: Theme.of(context).colorScheme.primary,
-            unselectedItemColor: Theme.of(context).colorScheme.secondary,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
             onTap: (value) => context
                 .read<NavigationBloc>()
                 .add(BottomNavEvent(context, value)),
