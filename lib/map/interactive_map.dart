@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 import 'interactive_map_viewer.dart';
-import 'map_tile_layer.dart';
+import 'layer/color_filtered_map_tile_layer.dart';
 import 'tile_url_builder/osm_tile_url_builder.dart';
 
 class InteractiveMap extends StatefulWidget {
@@ -41,13 +39,12 @@ class _InteractiveMapState extends State<InteractiveMap> {
   Widget build(BuildContext context) {
     return InteractiveMapViewer(
       controller: controller,
-      child: Stack(
-        children: [
-          MapTileLayer(
-            tileUrlBuilder: const OSMTileUrlBuilder(),
-          ),
-        ],
-      ),
+      onTap: widget.onTap,
+      layer: [
+        ColorFilteredMapTileLayer(
+          tileUrlBuilder: const OSMTileUrlBuilder(),
+        ),
+      ],
     );
   }
 }

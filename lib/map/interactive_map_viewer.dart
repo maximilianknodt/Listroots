@@ -2,16 +2,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
+import 'package:listroots/map/layer/layer.dart';
 import 'package:map/map.dart';
 
 class InteractiveMapViewer extends StatefulWidget {
-  final Widget child;
+  final List<Layer> layer;
   final MapController controller;
   final Function(LatLng location)? onTap;
 
   const InteractiveMapViewer({
     super.key,
-    required this.child,
+    required this.layer,
     required this.controller,
     this.onTap,
   });
@@ -24,6 +25,7 @@ class _InteractiveMapViewerState extends State<InteractiveMapViewer> {
   Offset? _dragStart;
   double _scaleStart = 1.0;
   late MapTransformer _transformer;
+  final double zoomspeed = 0.03;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class _InteractiveMapViewerState extends State<InteractiveMapViewer> {
           child: Listener(
             behavior: HitTestBehavior.opaque,
             onPointerSignal: _onPointerSignal,
-            child: widget.child,
+            child: Stack(children: widget.layer),
           ),
         );
       },
@@ -51,8 +53,10 @@ class _InteractiveMapViewerState extends State<InteractiveMapViewer> {
     const delta = 0.5;
     final zoom = clampDouble(widget.controller.zoom + delta, 2, 18);
     final position = details.localPosition;
-    _transformer.setZoomInPlace(zoom, position);
-    setState(() {});
+    setState(() {
+      _transformer.setZoomInPlace(zoom, position);
+      //widget.controller.center = location;
+    });
   }
 
   void _onScaleStart(ScaleStartDetails details) {
@@ -65,9 +69,9 @@ class _InteractiveMapViewerState extends State<InteractiveMapViewer> {
     _scaleStart = details.scale;
 
     if (scaleDiff > 0) {
-      setState(() => widget.controller.zoom += 0.02);
+      setState(() => widget.controller.zoom += zoomspeed);
     } else if (scaleDiff < 0) {
-      setState(() => widget.controller.zoom -= 0.02);
+      setState(() => widget.controller.zoom -= zoomspeed);
     } else {
       final now = details.focalPoint;
       final diff = now - _dragStart!;

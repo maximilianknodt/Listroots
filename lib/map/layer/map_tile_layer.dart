@@ -4,9 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:map/map.dart';
 
-import 'tile_url_builder/tile_url_builder.dart';
+import '../tile_url_builder/tile_url_builder.dart';
+import 'layer.dart';
 
-class MapTileLayer extends StatelessWidget {
+class MapTileLayer extends Layer {
   final TileUrlBuilder tileUrlBuilder;
 
   // can't be const, because it needs to rebuild when the controller changes
@@ -32,15 +33,9 @@ class MapTileLayer extends StatelessWidget {
         x %= tilesInZoom;
         y %= tilesInZoom;
 
-        return ColorFiltered(
-          colorFilter: const ColorFilter.mode(
-            Color.fromARGB(255, 255, 255, 255),
-            BlendMode.saturation,
-          ),
-          child: CachedNetworkImage(
-            imageUrl: tileUrlBuilder.call(x, y, z),
-            fit: BoxFit.cover,
-          ),
+        return CachedNetworkImage(
+          imageUrl: tileUrlBuilder.call(x, y, z),
+          fit: BoxFit.cover,
         );
       },
     );
