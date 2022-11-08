@@ -22,10 +22,15 @@ class MainScaffold extends StatelessWidget {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
+          BlocBuilder<NavigationBloc, NavigationState>(
+            builder: (context, state) {
+              if (state is BottomNavigationState) {
+                return state.currentDestination.action != null
+                    ? state.currentDestination.action!(context)
+                    : const SizedBox.shrink();
+              } else {
+                return const SizedBox.shrink();
+              }
             },
           ),
         ],

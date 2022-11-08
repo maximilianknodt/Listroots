@@ -7,26 +7,32 @@ abstract class NavigationState {
 
 class NavigationDefault extends NavigationState {
   @override
-  List<BottomNavigationDestination> get destinations => const [
+  List<BottomNavigationDestination> get destinations => [
         BottomNavigationDestination(
           icon: Icons.home_outlined,
           label: 'Home',
           route: '/home',
+          destination: (context) => const Home(),
+          action: (context) => const InfoButton(),
         ),
         BottomNavigationDestination(
           icon: Icons.bike_scooter_outlined,
           label: 'Fahren',
           route: '/drive',
+          destination: (context) => const Drive(),
         ),
         BottomNavigationDestination(
           icon: Icons.map_outlined,
           label: 'Karte',
           route: '/map',
+          destination: (context) => const Map(),
+          action: (context) => const ProfileIconButton(),
         ),
         BottomNavigationDestination(
           icon: Icons.list,
           label: 'Archiv',
           route: '/archive',
+          destination: (context) => const Archive(),
         ),
       ];
 }
