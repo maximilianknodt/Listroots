@@ -30,3 +30,14 @@ class NavigationDefault extends NavigationState {
         ),
       ];
 }
+
+class BottomNavigationState extends NavigationState {
+  BottomNavigationState(this.index, this.destinations);
+
+  @override
+  final List<BottomNavigationDestination> destinations;
+  final int index;
+
+  BottomNavigationDestination get currentDestination =>
+      destinations.elementAt(index);
+}
