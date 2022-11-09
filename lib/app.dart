@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:listroots/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home.dart';
+import 'global_bloc_provider.dart';
+import 'logic/navigation/navigation_bloc_bloc.dart';
+import 'theme.dart';
+import 'view/navigation/app_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return const GlobalBlocProvider(
+      child: _ListrootsApp(),
+    );
+  }
+}
+
+class _ListrootsApp extends StatelessWidget {
+  const _ListrootsApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Listroots',
       theme: AppColorTheme().theme,
       darkTheme: AppColorTheme().darkTheme,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: AppRouter(
+        destinations: context.read<NavigationBloc>().state.destinations,
+      ),
     );
   }
 }
