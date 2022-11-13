@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/general/blur.dart';
+
 class OverlayedMessageBanner extends StatelessWidget {
   const OverlayedMessageBanner({
     Key? key,
@@ -68,32 +70,44 @@ class _OverlayedMessageBannerContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BorderRadius borderRadius =
+        BorderRadius.circular(10); // TODO: theme extension
     return Container(
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.circular(10), // TODO: theme extension
+        borderRadius: borderRadius,
       ),
-      child: Material(
-        borderRadius: BorderRadius.circular(10), // TODO: theme extension
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(10), // TODO: theme extension
-          child: Padding(
-            padding: const EdgeInsets.all(10), // TODO: theme extension
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(width: 40, child: leading),
-                const SizedBox(width: 8), // TODO: theme extension
-                Expanded(child: child),
-                if (onPressed != null) const Icon(Icons.chevron_right),
-              ],
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Blur(
+              borderRadius: borderRadius,
+              sigma: 1.5,
             ),
           ),
-        ),
+          Material(
+            borderRadius: borderRadius,
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onPressed,
+              borderRadius: borderRadius,
+              child: Padding(
+                padding: const EdgeInsets.all(10), // TODO: theme extension
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 40, child: leading),
+                    const SizedBox(width: 8), // TODO: theme extension
+                    Expanded(child: child),
+                    if (onPressed != null) const Icon(Icons.chevron_right),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
