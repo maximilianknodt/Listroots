@@ -63,6 +63,10 @@ class AppColorTheme {
           fillColor: MaterialStateProperty.all(_primary),
           checkColor: MaterialStateProperty.all(_primaryContainer),
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: _primary,
+          foregroundColor: _canvas,
+        ),
         scaffoldBackgroundColor: _background,
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_lightColorSheme),
         colorScheme: _lightColorSheme,
