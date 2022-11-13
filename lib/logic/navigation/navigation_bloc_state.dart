@@ -23,7 +23,7 @@ class NavigationDefault extends NavigationState {
         ),
         BottomNavigationDestination(
           icon: Icons.map_outlined,
-          label: 'Karte',
+          label: 'Kartenansicht',
           route: '/map',
           destination: (context) => const Map(),
           action: (context) => const ProfileIconButton(),

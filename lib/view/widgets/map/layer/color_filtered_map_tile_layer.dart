@@ -30,13 +30,10 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
   }
 
   @override
-  Widget build(BuildContext context) {
-    Widget child = super.build(context);
+  Widget imageBuilder(context, imageProvider) {
+    Widget child = Image(image: imageProvider, fit: BoxFit.cover);
     for (var filter in colorFilters(context)) {
-      child = ColorFiltered(
-        colorFilter: filter,
-        child: child,
-      );
+      child = ColorFiltered(colorFilter: filter, child: child);
     }
     return child;
   }
