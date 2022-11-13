@@ -28,9 +28,7 @@ class _ListrootsApp extends StatelessWidget {
       title: 'Listroots',
       theme: AppColorTheme().theme,
       darkTheme: AppColorTheme().darkTheme,
-      routerConfig: AppRouter(
-        destinations: context.read<NavigationBloc>().state.destinations,
-      ),
+      routerConfig: AppRouter(context: context),
     );
   }
 }
