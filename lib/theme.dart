@@ -18,7 +18,7 @@ class AppColorTheme {
   static const Color _text = Color(0xFF181F0F); // Text-Farbe
   static const Color _textSecondary = Color(0xC0181F0F);
   //sekundäre Text-Farbe (Text-Farbe 75%(0xC0 alpha))
-  static const Color _canvas = Color(0XFFEBEBEA); // --> Canvas
+  static const Color _canvas = Color(0XFFFDFEFC); // --> Canvas
   static const Color _background = Color(0xFFF5F5F4);
 
   static const ColorScheme _lightColorSheme = ColorScheme(
@@ -58,6 +58,10 @@ class AppColorTheme {
           backgroundColor: _background,
           foregroundColor: _text,
           elevation: 0,
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.all(_primary),
+          checkColor: MaterialStateProperty.all(_primaryContainer),
         ),
         scaffoldBackgroundColor: _background,
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_lightColorSheme),
