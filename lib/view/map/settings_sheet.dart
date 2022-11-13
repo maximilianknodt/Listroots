@@ -41,9 +41,9 @@ class SettingsSheet extends StatelessWidget {
                     Center(
                       child: Container(
                         width: 50,
-                        height: 5,
+                        height: 8,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).dividerColor,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -53,24 +53,25 @@ class SettingsSheet extends StatelessWidget {
                       controlAffinity: ListTileControlAffinity.leading,
                       value: true,
                       onChanged: (value) {},
-                      title: Text("eigene Detektionen"), // TODO: i18n
-                      subtitle: Text(
+                      title: const Text("eigene Detektionen"), // TODO: i18n
+                      subtitle: const Text(
                           "von dir selbst detektierte Schäden"), // TODO: i18n
                     ),
                     CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
                       value: true,
                       onChanged: (value) {},
-                      title: Text(
+                      title: const Text(
                           "Detektionen von listroots-Nutzern"), // TODO: i18n
-                      subtitle: Text(
+                      subtitle: const Text(
                           "durch Dritte dokumentierte Schäden"), // TODO: i18n
                     ),
                     CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
                       value: true,
                       onChanged: (value) {},
-                      title: Text("OpenStreetMap Smoothness"), // TODO: i18n
+                      title:
+                          const Text("OpenStreetMap Smoothness"), // TODO: i18n
                     ),
                   ],
                 ),

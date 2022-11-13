@@ -9,8 +9,6 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
   });
 
   List<ColorFilter> colorFilters(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
     // desaturate image
     const desaturation = ColorFilter.mode(Colors.black, BlendMode.saturation);
 

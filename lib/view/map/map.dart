@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/map/interactive_map.dart';
+import 'message_banner_list.dart';
 import 'settings_sheet.dart';
 import 'tune_fab.dart';
 
@@ -36,7 +37,13 @@ class _MapState extends State<Map> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        const InteractiveMap(),
+        const ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30), // TODO: theme extension
+          ),
+          child: InteractiveMap(),
+        ),
+        const MessageBannerList(),
         SettingsSheet(
           controller: _controller,
           maxSize: widget._maxSize,

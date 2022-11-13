@@ -35,6 +35,7 @@ class AppColorTheme {
     onPrimary: _primaryContainer,
     onBackground: _text,
     onSecondary: _text,
+    onTertiary: _canvas,
   );
 
   static const ColorScheme _darkColorScheme = ColorScheme(
@@ -51,6 +52,7 @@ class AppColorTheme {
     onPrimary: Color(0xFFFFFFFF),
     onBackground: Color(0xFFFFFFFF),
     onSecondary: Color(0xFFFFFFFF),
+    onTertiary: Color.fromARGB(255, 0, 0, 0), // TODO:
   );
 
   ThemeData get theme => ThemeData(
