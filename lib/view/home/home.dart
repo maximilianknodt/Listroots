@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:listroots/logic/geo/geo_helper.dart';
 
-import '../../data/map/polyline.dart';
-import '../widgets/general/rectangle_fade_out.dart';
-import '../widgets/map/static_map.dart';
+import '../widgets/map/recorded_trip_map.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -16,8 +13,8 @@ class Home extends StatelessWidget {
         height: 300,
         child: RecordedTripMap(
           start: DateTime.now(),
-          end: DateTime.now()..subtract(Duration(hours: 1)),
-          path: [
+          end: DateTime.now()..subtract(const Duration(hours: 1)),
+          path: const [
             LatLng(52.27262175883876, 8.04809522538859),
             LatLng(52.272920574108596, 8.049362430692437),
             LatLng(52.27411581504878, 8.050543095179428),
@@ -29,51 +26,13 @@ class Home extends StatelessWidget {
             LatLng(52.274516743098005, 8.046389134362299),
             LatLng(52.27396452052699, 8.04510338459059),
           ],
-          detections: [
-            LatLng(51.5, -0.09),
-            LatLng(40.7, -74.0),
+          detections: const [
+            LatLng(52.27477079208176, 8.048024621625713),
+            LatLng(52.274955037472004, 8.048464251735915),
+            LatLng(52.27341103744562, 8.0498373429437715),
           ],
         ),
       ),
-    );
-  }
-}
-
-class RecordedTripMap extends StatelessWidget {
-  const RecordedTripMap({
-    Key? key,
-    required this.start,
-    required this.end,
-    required this.path,
-    required this.detections,
-  }) : super(key: key);
-
-  final DateTime start;
-  final DateTime end;
-  final List<LatLng> path;
-  final List<LatLng> detections;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        RectangleFadeOut(
-          fadeAmount: 0.1,
-          child: StaticMap(
-            zoom: 16,
-            center: GeoHelper.getCenter(path),
-            markers: detections,
-            polylines: [Polyline(path)],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0), // TODO: theme extension
-          child: Text(
-            "27.10.2022, 17:34 Uhr\n23:03 Minuten\n3 Detektionen",
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-        ),
-      ],
     );
   }
 }

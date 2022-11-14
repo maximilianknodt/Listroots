@@ -24,12 +24,12 @@ class GeoHelper {
   }
 
   /// returns the geographical center of a list of points
-  static LatLng getCenter(List<LatLng> points) {
+  static LatLng computeCenter(List<LatLng> points) {
     DirectionalExtremes<LatLng> extremes = getDirectionalExtremes(points);
-    // return LatLng(
-    //   extremes.north.latitude + extremes.south.latitude / 2,
-    //   extremes.east.longitude + extremes.west.longitude / 2,
-    // );
+    return computeCenterOfExtremes(extremes);
+  }
+
+  static LatLng computeCenterOfExtremes(DirectionalExtremes<LatLng> extremes) {
     LatLng eastWestCenter = interpolate(extremes.east, extremes.west, .5);
     LatLng northSouthCenter = interpolate(extremes.north, extremes.south, .5);
     return interpolate(eastWestCenter, northSouthCenter, .5);
@@ -43,5 +43,13 @@ class GeoHelper {
         fraction,
       ),
     );
+  }
+
+  /// returns the distance between two points in meters
+  static double distance(LatLng start, LatLng end) {
+    return toolkit.SphericalUtil.computeDistanceBetween(
+      start.toMapsToolkit(),
+      end.toMapsToolkit(),
+    ).toDouble();
   }
 }
