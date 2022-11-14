@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart' show MapController;
 
+import 'current_location_marker_dot.dart';
 import 'interactive_map_viewer.dart';
 import 'layer/color_filtered_map_tile_layer.dart';
 import 'layer/marker_layer.dart';
 import 'layer/polyline_layer.dart';
+import 'layer/single_location_layer.dart';
 import 'tile_url_builder/osm_tile_url_builder.dart';
 
 class InteractiveMap extends StatefulWidget {
@@ -56,6 +58,10 @@ class _InteractiveMapState extends State<InteractiveMap> {
         MarkerLayer(
           scaleWithZoom: false,
           markers: widget.markers,
+        ),
+        SingleLocationLayer(
+          location: widget.location,
+          builder: (_, offset) => CurrentLocationMarkerDot(offset: offset),
         ),
       ],
     );
