@@ -83,7 +83,7 @@ class _OverlayedMessageBannerContainer extends StatelessWidget {
           Positioned.fill(
             child: Blur(
               borderRadius: borderRadius,
-              sigma: 1.5,
+              sigma: 2.0,
             ),
           ),
           Material(

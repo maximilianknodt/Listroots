@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart' show MapController;
 
+import '../../../data/map/polyline.dart';
 import 'current_location_marker_dot.dart';
 import 'interactive_map_viewer.dart';
 import 'layer/color_filtered_map_tile_layer.dart';
@@ -15,7 +16,7 @@ class InteractiveMap extends StatefulWidget {
   final double zoom;
   final Function(LatLng location)? onTap;
   final List<LatLng> markers;
-  final List<List<LatLng>> polylines;
+  final List<Polyline> polylines;
 
   const InteractiveMap({
     Key? key,
