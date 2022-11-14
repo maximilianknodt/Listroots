@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:map/map.dart';
+import 'package:map/map.dart' show MapController;
 
 import 'interactive_map_viewer.dart';
 import 'layer/color_filtered_map_tile_layer.dart';
 import 'layer/marker_layer.dart';
+import 'layer/polyline_layer.dart';
 import 'tile_url_builder/osm_tile_url_builder.dart';
 
 class InteractiveMap extends StatefulWidget {
@@ -12,6 +13,7 @@ class InteractiveMap extends StatefulWidget {
   final double zoom;
   final Function(LatLng location)? onTap;
   final List<LatLng> markers;
+  final List<List<LatLng>> polylines;
 
   const InteractiveMap({
     Key? key,
@@ -19,6 +21,7 @@ class InteractiveMap extends StatefulWidget {
     this.zoom = 15,
     this.onTap,
     this.markers = const [],
+    this.polylines = const [],
   }) : super(key: key);
 
   @override
@@ -46,6 +49,9 @@ class _InteractiveMapState extends State<InteractiveMap> {
       layer: [
         ColorFilteredMapTileLayer(
           tileUrlBuilder: const OSMTileUrlBuilder(),
+        ),
+        PolylineLayer(
+          polylines: widget.polylines,
         ),
         MarkerLayer(
           scaleWithZoom: false,

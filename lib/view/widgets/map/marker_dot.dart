@@ -21,6 +21,11 @@ class MarkerDot extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           shape: BoxShape.circle,
+          border: Border.all(
+            width: 4,
+            color: Theme.of(context).colorScheme.primaryContainer,
+            strokeAlign: StrokeAlign.outside,
+          ),
         ),
       ),
     );
