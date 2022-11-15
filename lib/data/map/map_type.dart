@@ -33,4 +33,9 @@ enum MapType {
         MapType.osmOriginal: false,
         MapType.cycleOSMOriginal: false,
       }[this]!;
+
+  Color? get backgroundColor => const {
+        MapType.osmOriginal: Color(0xFFDCDADA),
+        MapType.cycleOSMOriginal: Color(0xFFFAEEDF),
+      }[this];
 }

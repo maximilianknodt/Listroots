@@ -24,23 +24,23 @@ class MapSettingsBloc extends Bloc<MapSettingsEvent, MapSettingsState> {
 
   void _setMapType(
       MapSettingsEventSetMapType event, Emitter<MapSettingsState> emit) {
-    _saveSettings();
     emit(state.copyWith(mapType: event.mapType));
+    _saveSettings();
   }
 
   void _toggleOwnDetections(event, Emitter<MapSettingsState> emit) {
-    _saveSettings();
     emit(state.copyWith(shownOwnDetections: !state.shownOwnDetections));
+    _saveSettings();
   }
 
   void _toggleForeignDetections(event, Emitter<MapSettingsState> emit) {
-    _saveSettings();
     emit(state.copyWith(shownForeignDetections: !state.shownForeignDetections));
+    _saveSettings();
   }
 
   void _toggleOsmSmoothness(event, Emitter<MapSettingsState> emit) {
-    _saveSettings();
     emit(state.copyWith(shownOSMSmoothness: !state.shownOSMSmoothness));
+    _saveSettings();
   }
 
   Future<void> _saveSettings() async {

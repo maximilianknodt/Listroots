@@ -89,10 +89,14 @@ class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
         MarkerLayer(
           scaleWithZoom: false,
           markers: widget.markers,
+          backgroundColor: widget.mapType.backgroundColor,
         ),
         SingleLocationLayer(
           location: widget.location,
-          builder: (_, offset) => CurrentLocationMarkerDot(offset: offset),
+          builder: (_, offset) => CurrentLocationMarkerDot(
+            offset: offset,
+            backgroundColor: widget.mapType.backgroundColor,
+          ),
         ),
       ],
     );
