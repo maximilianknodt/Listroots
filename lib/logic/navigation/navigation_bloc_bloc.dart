@@ -14,7 +14,8 @@ part 'navigation_bloc_event.dart';
 part 'navigation_bloc_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc() : super(NavigationDefault()) {
+  NavigationBloc()
+      : super(BottomNavigationState(0, NavigationDefault().destinations)) {
     on<NavigationEvent>((event, emit) {});
     on<BottomNavEvent>((event, emit) {
       String route = state.destinations.elementAt(event.index).route;
