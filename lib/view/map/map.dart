@@ -39,17 +39,18 @@ class _MapState extends State<Map> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        const ClipRRect(
-          borderRadius: BorderRadius.vertical(
+        ClipRRect(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(30), // TODO: theme extension
           ),
           child: InteractiveMap(
-            location: LatLng(
+            onTap: _mapTap,
+            location: const LatLng(
                 52.283954, 8.0225185), // TODO: real data & state management
-            markers: [
+            markers: const [
               LatLng(52.29, 8.023), // TODO: real data & state management
             ],
-            polylines: [
+            polylines: const [
               Polyline([
                 // TODO: real data & state management
                 LatLng(52.283954, 8.0225185),
@@ -58,17 +59,14 @@ class _MapState extends State<Map> {
                 LatLng(52.29, 8.026),
                 LatLng(52.2889, 8.032),
               ]),
-              Polyline.colored(
-                [
-                  // TODO: real data & state management
-                  LatLng(52.2832954, 8.0225185),
-                  LatLng(52.2832954, 8.0295185),
-                  LatLng(52.2802954, 8.0235185),
-                  LatLng(52.2812954, 8.0233185),
-                  LatLng(52.2812000, 8.0223185),
-                ],
-                color: Colors.amber,
-              ),
+              Polyline.colored([
+                // TODO: real data & state management
+                LatLng(52.2832954, 8.0225185),
+                LatLng(52.2832954, 8.0295185),
+                LatLng(52.2802954, 8.0235185),
+                LatLng(52.2812954, 8.0233185),
+                LatLng(52.2812000, 8.0223185),
+              ], color: Colors.amber),
             ],
           ),
         ),
@@ -89,6 +87,12 @@ class _MapState extends State<Map> {
         ),
       ],
     );
+  }
+
+  void _mapTap(location) {
+    if (_isExpanded) {
+      _onPressedFAB();
+    }
   }
 
   void _onPressedFAB() async {

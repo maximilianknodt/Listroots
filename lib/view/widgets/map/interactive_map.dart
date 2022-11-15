@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
+import 'package:listroots/view/widgets/map/map_base.dart';
 import 'package:map/map.dart' show MapController;
 
 import '../../../data/map/polyline.dart';
@@ -11,14 +12,39 @@ import 'layer/polyline_layer.dart';
 import 'layer/single_location_layer.dart';
 import 'tile_url_builder/osm_tile_url_builder.dart';
 
-class InteractiveMap extends StatefulWidget {
+class InteractiveMap extends MapBase {
+  const InteractiveMap({
+    super.key,
+    LatLng? location,
+    super.zoom,
+    this.onTap,
+    super.markers,
+    super.polylines,
+  }) : super(center: location ?? const LatLng(52.283954, 8.0225185));
+
+  final Function(LatLng location)? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return _InteractiveMapDyn(
+      key: key,
+      location: center,
+      zoom: zoom,
+      onTap: onTap,
+      markers: markers ?? [],
+      polylines: polylines ?? [],
+    );
+  }
+}
+
+class _InteractiveMapDyn extends StatefulWidget {
   final LatLng location;
   final double zoom;
   final Function(LatLng location)? onTap;
   final List<LatLng> markers;
   final List<Polyline> polylines;
 
-  const InteractiveMap({
+  const _InteractiveMapDyn({
     Key? key,
     this.location = const LatLng(52.283954, 8.0225185),
     this.zoom = 15,
@@ -28,10 +54,10 @@ class InteractiveMap extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<InteractiveMap> createState() => _InteractiveMapState();
+  State<_InteractiveMapDyn> createState() => _InteractiveMapDynState();
 }
 
-class _InteractiveMapState extends State<InteractiveMap> {
+class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
   late final MapController controller;
 
   @override

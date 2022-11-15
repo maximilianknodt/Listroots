@@ -12,7 +12,8 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     // desaturate image
-    const desaturation = ColorFilter.mode(Colors.black, BlendMode.saturation);
+    const desaturation =
+        ColorFilter.mode(Color.fromARGB(220, 0, 0, 0), BlendMode.saturation);
 
     // decrease influence of very dark (lightmode) or very light (darkmode) colors
     final thresholdColor = isDark
@@ -29,7 +30,7 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
 
     // overlay dark or light color to match color scheme
     final overlay = ColorFilter.mode(
-      Theme.of(context).colorScheme.background.withOpacity(isDark ? 0.5 : 0.4),
+      Theme.of(context).colorScheme.background.withOpacity(isDark ? 0.5 : 0.6),
       BlendMode.srcATop,
     );
 
