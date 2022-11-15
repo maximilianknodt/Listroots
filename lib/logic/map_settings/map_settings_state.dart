@@ -39,3 +39,13 @@ class MapSettingsInitial extends MapSettingsState {
           shownOSMSmoothness: true,
         );
 }
+
+class MapSettingsLoaded extends MapSettingsState {
+  MapSettingsLoaded(MapSettings settings)
+      : super(
+          mapType: settings.mapType,
+          shownOwnDetections: settings.shownOwnDetections,
+          shownForeignDetections: settings.shownForeignDetections,
+          shownOSMSmoothness: settings.shownOSMSmoothness,
+        );
+}
