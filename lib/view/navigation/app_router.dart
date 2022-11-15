@@ -26,7 +26,7 @@ class AppRouter extends GoRouter {
             child: MainScaffold(
               action: element.action?.call(context),
               title: Text(element.label),
-              child: element.destination(context),
+              child: element.destination(context)
             ),
           ),
         );

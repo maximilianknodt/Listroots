@@ -11,7 +11,9 @@ class Documenting extends StatelessWidget {
         leading: BackButton(
           onPressed: () => GoRouter.of(context).pop(), // TODO: go back to drive
         ),
-        title: const Text("Manuelle Dokumentation"),
+        title: const Text(
+          "Manuelle Dokumentation",
+        ),
       ),
       body: const Center(
         child: Text("Manuelle Dokumentation"),
