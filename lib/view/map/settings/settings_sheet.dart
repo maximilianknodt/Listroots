@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../logic/map_settings/map_settings_bloc.dart';
+import 'checkbox_map_setting.dart';
+import 'map_type_selection_buttons.dart';
+
 class SettingsSheet extends StatelessWidget {
   const SettingsSheet({
     Key? key,
     required DraggableScrollableController controller,
-    this.maxSize = 0.35,
+    this.maxSize = 0.4,
     this.minSize = 0.05,
   })  : _controller = controller,
         super(key: key);
@@ -20,7 +24,7 @@ class SettingsSheet extends StatelessWidget {
       initialChildSize: minSize,
       minChildSize: minSize,
       maxChildSize: maxSize,
-      snap: false,
+      snap: true,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -49,29 +53,28 @@ class SettingsSheet extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: true,
-                      onChanged: (value) {},
-                      title: const Text("eigene Detektionen"), // TODO: i18n
-                      subtitle: const Text(
-                          "von dir selbst detektierte Schäden"), // TODO: i18n
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0, // TODO: theme extension
+                        vertical: 8.0, // TODO: theme extension
+                      ),
+                      child: MapTypeSelectionButtons(),
                     ),
-                    CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: true,
-                      onChanged: (value) {},
-                      title: const Text(
-                          "Detektionen von listroots-Nutzern"), // TODO: i18n
-                      subtitle: const Text(
-                          "durch Dritte dokumentierte Schäden"), // TODO: i18n
+                    const CheckboxMapSetting(
+                      title: "eigene Detektionen", // TODO: i18n
+                      subtitle:
+                          "von dir selbst detektierte Schäden", // TODO: i18n
+                      event: MapSettingsEventToggleOwnDetections(),
                     ),
-                    CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: true,
-                      onChanged: (value) {},
-                      title:
-                          const Text("OpenStreetMap Smoothness"), // TODO: i18n
+                    const CheckboxMapSetting(
+                      title: "Detektionen von listroots-Nutzern", // TODO: i18n
+                      subtitle:
+                          "durch Dritte dokumentierte Schäden", // TODO: i18n
+                      event: MapSettingsEventToggleForeignDetections(),
+                    ),
+                    const CheckboxMapSetting(
+                      title: "OpenStreetMap Smoothness", // TODO: i18n
+                      event: MapSettingsEventToggleOsmSmoothness(),
                     ),
                   ],
                 ),

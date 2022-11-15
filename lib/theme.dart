@@ -86,6 +86,18 @@ class AppColorTheme {
         elevatedButtonTheme: ElevatedButtonThemeData(style: _baseButtonStyle),
         textButtonTheme: _textButtonTheme(_primaryContainer),
         outlinedButtonTheme: OutlinedButtonThemeData(style: _baseButtonStyle),
+        toggleButtonsTheme: ToggleButtonsThemeData(
+          color: _textSecondary,
+          borderColor: _primaryContainer,
+          fillColor: _primaryContainer,
+          selectedColor: _primary,
+          selectedBorderColor: _background,
+          borderRadius: BorderRadius.circular(10),
+          constraints: BoxConstraints(
+            minHeight: 50,
+            minWidth: 50,
+          ),
+        ),
       );
 
   ThemeData get darkTheme => ThemeData(
