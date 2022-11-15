@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../logic/map_settings/map_settings_bloc.dart';
 import 'checkbox_map_setting.dart';
@@ -60,22 +61,40 @@ class SettingsSheet extends StatelessWidget {
                       ),
                       child: MapTypeSelectionButtons(),
                     ),
-                    const CheckboxMapSetting(
-                      title: "eigene Detektionen", // TODO: i18n
-                      subtitle:
-                          "von dir selbst detektierte Schäden", // TODO: i18n
-                      event: MapSettingsEventToggleOwnDetections(),
-                    ),
-                    const CheckboxMapSetting(
-                      title: "Detektionen von listroots-Nutzern", // TODO: i18n
-                      subtitle:
-                          "durch Dritte dokumentierte Schäden", // TODO: i18n
-                      event: MapSettingsEventToggleForeignDetections(),
-                    ),
-                    const CheckboxMapSetting(
-                      title: "OpenStreetMap Smoothness", // TODO: i18n
-                      event: MapSettingsEventToggleOsmSmoothness(),
-                    ),
+                    BlocBuilder<MapSettingsBloc, MapSettingsState>(
+                      builder: (context, state) {
+                        bool showOwn = state.shownOwnDetections;
+                        bool showForeign = state.shownForeignDetections;
+                        bool showOsm = state.shownOSMSmoothness;
+                        return Column(
+                          children: [
+                            CheckboxMapSetting(
+                              title: "eigene Detektionen", // TODO: i18n
+                              subtitle:
+                                  "von dir selbst detektierte Schäden", // TODO: i18n
+                              event:
+                                  const MapSettingsEventToggleOwnDetections(),
+                              selected: showOwn,
+                            ),
+                            CheckboxMapSetting(
+                              title:
+                                  "Detektionen von listroots-Nutzern", // TODO: i18n
+                              subtitle:
+                                  "durch Dritte dokumentierte Schäden", // TODO: i18n
+                              event:
+                                  const MapSettingsEventToggleForeignDetections(),
+                              selected: showForeign,
+                            ),
+                            CheckboxMapSetting(
+                              title: "OpenStreetMap Smoothness", // TODO: i18n
+                              event:
+                                  const MapSettingsEventToggleOsmSmoothness(),
+                              selected: showOsm,
+                            ),
+                          ],
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

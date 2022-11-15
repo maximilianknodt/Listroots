@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,18 +10,20 @@ class CheckboxMapSetting extends StatelessWidget {
     Key? key,
     required this.title,
     this.subtitle,
+    required this.selected,
     required this.event,
   }) : super(key: key);
 
   final String title;
   final String? subtitle;
+  final bool selected;
   final MapSettingsEvent event;
 
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
       controlAffinity: ListTileControlAffinity.leading,
-      value: true,
+      value: selected,
       onChanged: (value) {
         BlocProvider.of<MapSettingsBloc>(context).add(event);
       },
