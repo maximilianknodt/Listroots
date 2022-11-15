@@ -2,11 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:listroots/view/widgets/map/layer/layer.dart';
 import 'package:map/map.dart';
 
+import 'layer/layer_builder.dart';
+
 class InteractiveMapViewer extends StatefulWidget {
-  final List<Layer> layer;
+  final List<LayerBuilder> layer;
   final MapController controller;
   final Function(LatLng location)? onTap;
 
@@ -42,7 +43,11 @@ class _InteractiveMapViewerState extends State<InteractiveMapViewer> {
           child: Listener(
             behavior: HitTestBehavior.opaque,
             onPointerSignal: _onPointerSignal,
-            child: Stack(children: widget.layer),
+            child: Stack(
+              children: widget.layer.map((layer) {
+                return layer.build(context, transformer);
+              }).toList(),
+            ),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// marker interface type class
 abstract class Layer extends StatelessWidget {
-  const Layer({Key? key}) : super(key: key);
+  const Layer({super.key});
 }

@@ -20,7 +20,7 @@ class SettingsSheet extends StatelessWidget {
       initialChildSize: minSize,
       minChildSize: minSize,
       maxChildSize: maxSize,
-      snap: true,
+      snap: false,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(

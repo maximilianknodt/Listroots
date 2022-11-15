@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:map/map.dart';
 
 import '../tile_url_builder/tile_url_builder.dart';
-import 'layer.dart';
+import 'layer_builder.dart';
 
-class MapTileLayer extends Layer {
+class MapTileLayer extends LayerBuilder {
   final TileUrlBuilder tileUrlBuilder;
 
   // can't be const, because it needs to rebuild when the controller changes
@@ -15,10 +15,10 @@ class MapTileLayer extends Layer {
   MapTileLayer({
     Key? key,
     required this.tileUrlBuilder,
-  }) : super(key: key);
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, MapTransformer transformer) {
     return TileLayer(
       builder: (context, x, y, z) {
         final tilesInZoom = pow(2.0, z).floor();

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:latlng/latlng.dart';
 
+import '../../data/map/polyline.dart';
 import '../widgets/map/interactive_map.dart';
 import 'message_banner_list.dart';
 import 'settings_sheet.dart';
@@ -41,7 +43,34 @@ class _MapState extends State<Map> {
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(30), // TODO: theme extension
           ),
-          child: InteractiveMap(),
+          child: InteractiveMap(
+            location: LatLng(
+                52.283954, 8.0225185), // TODO: real data & state management
+            markers: [
+              LatLng(52.29, 8.023), // TODO: real data & state management
+            ],
+            polylines: [
+              Polyline([
+                // TODO: real data & state management
+                LatLng(52.283954, 8.0225185),
+                LatLng(52.2839, 8.02251),
+                LatLng(52.29, 8.023),
+                LatLng(52.29, 8.026),
+                LatLng(52.2889, 8.032),
+              ]),
+              Polyline.colored(
+                [
+                  // TODO: real data & state management
+                  LatLng(52.2832954, 8.0225185),
+                  LatLng(52.2832954, 8.0295185),
+                  LatLng(52.2802954, 8.0235185),
+                  LatLng(52.2812954, 8.0233185),
+                  LatLng(52.2812000, 8.0223185),
+                ],
+                color: Colors.amber,
+              ),
+            ],
+          ),
         ),
         const MessageBannerList(),
         SettingsSheet(
