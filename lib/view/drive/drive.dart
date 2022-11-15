@@ -5,8 +5,33 @@ class Drive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Drive"),
+    return Padding(
+      padding: const EdgeInsets.all(16.0), // TODO: theme extension
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Expanded(
+            child: Center(
+              child: Text("Drive"),
+            ),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              // TODO: navigate: GoRouter.of(context).pushNamed('/drive/recording');
+            },
+            icon: const Icon(Icons.play_arrow_outlined),
+            label: const Text("Aufzeichnung starten"),
+          ),
+          const Divider(color: Colors.transparent),
+          TextButton.icon(
+            onPressed: () {
+              // TODO: navigate: GoRouter.of(context).push('/drive/documenting');
+            },
+            icon: const Icon(Icons.linked_camera),
+            label: const Text("Manuell dokumentieren"),
+          ),
+        ],
+      ),
     );
   }
 }

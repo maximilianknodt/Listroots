@@ -64,6 +64,9 @@ class AppColorTheme {
         colorScheme: _lightColorSheme,
         fontFamily: _ibmPlexSans,
         textTheme: _textTheme,
+        elevatedButtonTheme: ElevatedButtonThemeData(style: _baseButtonStyle),
+        textButtonTheme: _textButtonTheme(_primaryContainer),
+        outlinedButtonTheme: OutlinedButtonThemeData(style: _baseButtonStyle),
       );
 
   ThemeData get darkTheme => ThemeData(
@@ -76,6 +79,11 @@ class AppColorTheme {
         scaffoldBackgroundColor: _darkColorScheme.background,
         colorScheme: _darkColorScheme,
         fontFamily: _ibmPlexSans,
+
+        elevatedButtonTheme: ElevatedButtonThemeData(style: _baseButtonStyle),
+        textButtonTheme: _textButtonTheme(const Color(
+            0xFF29341D)), // TODO: use _primaryContainerDark after merge
+        outlinedButtonTheme: OutlinedButtonThemeData(style: _baseButtonStyle),
       );
 
   TextTheme get _textTheme => TextTheme(
@@ -126,5 +134,26 @@ class AppColorTheme {
         unselectedItemColor: colorScheme.onBackground,
         selectedLabelStyle: _label(12),
         unselectedLabelStyle: _label(12),
+      );
+
+  ButtonStyle get _baseButtonStyle => ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        minimumSize: MaterialStateProperty.all(
+          const Size(100, 50),
+        ),
+      );
+
+  TextButtonThemeData _textButtonTheme(Color backgroundColor) =>
+      TextButtonThemeData(
+        style: _baseButtonStyle.copyWith(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            backgroundColor,
+          ),
+        ),
       );
 }
