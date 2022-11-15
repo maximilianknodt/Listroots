@@ -12,14 +12,23 @@ class AppColorTheme {
   static const FontWeight _medium = FontWeight.w500;
   static const FontWeight _regular = FontWeight.w400;
 
-  // colors
+  // light colors
   static const Color _primary = Color(0xFF5F9220); // Primärfarbe
   static const Color _primaryContainer = Color(0xFFEBEBEA);
   static const Color _text = Color(0xFF181F0F); // Text-Farbe
   static const Color _textSecondary = Color(0xC0181F0F);
   //sekundäre Text-Farbe (Text-Farbe 75%(0xC0 alpha))
-  static const Color _canvas = Color(0XFFEBEBEA); // --> Canvas
+  static const Color _canvas = Color(0XFFFDFEFC); // --> Canvas
   static const Color _background = Color(0xFFF5F5F4);
+
+// dark colors
+  static const Color _primaryDark = _primary; // Primärfarbe
+  static const Color _primaryContainerDark = Color(0xFF29341D);
+  static const Color _textDark = Color(0xFFF5F5F4); // Text-Farbe
+  static const Color _textSecondaryDark = Color(0xC0F5F5F4);
+  //sekundäre Text-Farbe (Text-Farbe 75%(0xC0 alpha))
+  static const Color _canvasDark = Color(0xFF1F221A); // --> Canvas
+  static const Color _backgroundDark = Color(0xFF141611);
 
   static const ColorScheme _lightColorSheme = ColorScheme(
     brightness: Brightness.light,
@@ -35,22 +44,24 @@ class AppColorTheme {
     onPrimary: _primaryContainer,
     onBackground: _text,
     onSecondary: _text,
+    onTertiary: _canvas,
   );
 
   static const ColorScheme _darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
-    primary: Color(0xFF5F9220), // Primärfarbe
-    secondary: Color(0xFFF5F5F4), // Text-Farbe
-    tertiary: Color(0xC0F5F5F4), // sekundäre Text-Farbe (Text-Farbe 75%)
+    primary: _primaryDark,
+    secondary: _textDark,
+    tertiary: _textSecondaryDark,
     error: Color(0xFFFF0000),
     onError: Color(0xFFFFFFFF),
-    background: Color(0xFF141611),
-    primaryContainer: Color(0xFF29341D),
-    surface: Color(0xFF1F221A), // --> Canvas
-    onSurface: Color(0xFFF5F5F4),
-    onPrimary: Color(0xFFFFFFFF),
-    onBackground: Color(0xFFFFFFFF),
-    onSecondary: Color(0xFFFFFFFF),
+    background: _backgroundDark,
+    primaryContainer: _primaryContainerDark,
+    surface: _canvasDark,
+    onSurface: _textDark,
+    onPrimary: _primaryContainerDark,
+    onBackground: _textDark,
+    onSecondary: _textDark,
+    onTertiary: _canvasDark,
   );
 
   ThemeData get theme => ThemeData(
@@ -58,6 +69,14 @@ class AppColorTheme {
           backgroundColor: _background,
           foregroundColor: _text,
           elevation: 0,
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.all(_primary),
+          checkColor: MaterialStateProperty.all(_primaryContainer),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: _primary,
+          foregroundColor: _canvas,
         ),
         scaffoldBackgroundColor: _background,
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_lightColorSheme),
@@ -71,6 +90,14 @@ class AppColorTheme {
           backgroundColor: _darkColorScheme.background,
           foregroundColor: _darkColorScheme.onBackground,
           elevation: 0,
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.all(_primaryDark),
+          checkColor: MaterialStateProperty.all(_primaryContainerDark),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: _primaryDark,
+          foregroundColor: _canvasDark,
         ),
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_darkColorScheme),
         scaffoldBackgroundColor: _darkColorScheme.background,

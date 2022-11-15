@@ -36,8 +36,23 @@ class MapTileLayer extends Layer {
         return CachedNetworkImage(
           imageUrl: tileUrlBuilder.call(x, y, z),
           fit: BoxFit.cover,
+          imageBuilder: imageBuilder,
+          placeholder: placeholderBuilder,
         );
       },
+    );
+  }
+
+  Widget placeholderBuilder(context, url) {
+    return Container(
+      color: Theme.of(context).colorScheme.background,
+    );
+  }
+
+  Widget imageBuilder(context, imageProvider) {
+    return Image(
+      image: imageProvider,
+      fit: BoxFit.cover,
     );
   }
 }

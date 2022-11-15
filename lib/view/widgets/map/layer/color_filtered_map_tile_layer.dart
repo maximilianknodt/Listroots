@@ -9,8 +9,6 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
   });
 
   List<ColorFilter> colorFilters(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
     // desaturate image
     const desaturation = ColorFilter.mode(Colors.black, BlendMode.saturation);
 
@@ -30,13 +28,10 @@ class ColorFilteredMapTileLayer extends MapTileLayer {
   }
 
   @override
-  Widget build(BuildContext context) {
-    Widget child = super.build(context);
+  Widget imageBuilder(context, imageProvider) {
+    Widget child = Image(image: imageProvider, fit: BoxFit.cover);
     for (var filter in colorFilters(context)) {
-      child = ColorFiltered(
-        colorFilter: filter,
-        child: child,
-      );
+      child = ColorFiltered(colorFilter: filter, child: child);
     }
     return child;
   }

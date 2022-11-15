@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:listroots/map/layer/layer.dart';
+import 'package:listroots/view/widgets/map/layer/layer.dart';
 import 'package:map/map.dart';
 
 class InteractiveMapViewer extends StatefulWidget {
