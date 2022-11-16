@@ -4,11 +4,15 @@ class MarkerDot extends StatelessWidget {
   const MarkerDot({
     super.key,
     required this.position,
+    this.color,
+    this.backgroundColor,
     this.size = 10,
   });
 
   final Offset position;
   final double size;
+  final Color? color;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +23,12 @@ class MarkerDot extends StatelessWidget {
       height: size,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: color ?? Theme.of(context).colorScheme.primary,
           shape: BoxShape.circle,
           border: Border.all(
             width: 4,
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: backgroundColor ??
+                Theme.of(context).colorScheme.primaryContainer,
             strokeAlign: StrokeAlign.outside,
           ),
         ),

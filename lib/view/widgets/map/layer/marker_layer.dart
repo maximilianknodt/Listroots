@@ -13,12 +13,16 @@ class MarkerLayer extends LayerBuilder {
     required this.markers,
     this.scaleWithZoom = false,
     this.markerScale,
+    this.color,
+    this.backgroundColor,
   }) : assert((markerScale == null && scaleWithZoom == false) ||
             (markerScale != null && scaleWithZoom == true));
 
   final List<LatLng> markers;
   final bool scaleWithZoom;
   final double? markerScale;
+  final Color? color;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context, MapTransformer transformer) {
@@ -30,6 +34,8 @@ class MarkerLayer extends LayerBuilder {
         return MarkerDot(
           position: element,
           size: size,
+          color: color,
+          backgroundColor: backgroundColor,
         );
       }).toList(),
     );

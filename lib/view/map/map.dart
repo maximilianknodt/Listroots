@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlng/latlng.dart';
 
 import '../../data/map/polyline.dart';
+import '../../logic/map_settings/map_settings_bloc.dart';
 import '../widgets/map/interactive_map.dart';
 import 'message_banner_list.dart';
-import 'settings_sheet.dart';
+import 'settings/settings_sheet.dart';
 import 'tune_fab.dart';
 
-class Map extends StatefulWidget {
+class Map extends StatelessWidget {
   const Map({super.key});
 
-  final double _maxSize = 0.35;
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MapSettingsBloc(),
+      child: const _MapPage(),
+    );
+  }
+}
+
+class _MapPage extends StatefulWidget {
+  const _MapPage();
+
+  final double _maxSize = 0.475;
   final double _minSize = 0.05;
   final double _baseOffset = 20;
 
   @override
-  State<Map> createState() => _MapState();
+  State<_MapPage> createState() => _MapState();
 }
 
-class _MapState extends State<Map> {
+class _MapState extends State<_MapPage> {
   final DraggableScrollableController _controller =
       DraggableScrollableController();
   final Duration _animationDuration = const Duration(milliseconds: 300);
@@ -43,31 +57,38 @@ class _MapState extends State<Map> {
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(30), // TODO: theme extension
           ),
-          child: InteractiveMap(
-            onTap: _mapTap,
-            location: const LatLng(
-                52.283954, 8.0225185), // TODO: real data & state management
-            markers: const [
-              LatLng(52.29, 8.023), // TODO: real data & state management
-            ],
-            polylines: const [
-              Polyline([
-                // TODO: real data & state management
-                LatLng(52.283954, 8.0225185),
-                LatLng(52.2839, 8.02251),
-                LatLng(52.29, 8.023),
-                LatLng(52.29, 8.026),
-                LatLng(52.2889, 8.032),
-              ]),
-              Polyline.colored([
-                // TODO: real data & state management
-                LatLng(52.2832954, 8.0225185),
-                LatLng(52.2832954, 8.0295185),
-                LatLng(52.2802954, 8.0235185),
-                LatLng(52.2812954, 8.0233185),
-                LatLng(52.2812000, 8.0223185),
-              ], color: Colors.amber),
-            ],
+          child: BlocBuilder<MapSettingsBloc, MapSettingsState>(
+            builder: (context, state) {
+              return InteractiveMap(
+                onTap: _mapTap,
+                mapType: state.mapType,
+                location: const LatLng(
+                    52.283954, 8.0225185), // TODO: real data & state management
+                markers: const [
+                  LatLng(52.29, 8.023), // TODO: real data & state management
+                ],
+                polylines: state.shownOSMSmoothness
+                    ? const [
+                        Polyline([
+                          // TODO: real data & state management
+                          LatLng(52.283954, 8.0225185),
+                          LatLng(52.2839, 8.02251),
+                          LatLng(52.29, 8.023),
+                          LatLng(52.29, 8.026),
+                          LatLng(52.2889, 8.032),
+                        ]),
+                        Polyline.colored([
+                          // TODO: real data & state management
+                          LatLng(52.2832954, 8.0225185),
+                          LatLng(52.2832954, 8.0295185),
+                          LatLng(52.2802954, 8.0235185),
+                          LatLng(52.2812954, 8.0233185),
+                          LatLng(52.2812000, 8.0223185),
+                        ], color: Colors.amber),
+                      ]
+                    : [],
+              );
+            },
           ),
         ),
         const MessageBannerList(),

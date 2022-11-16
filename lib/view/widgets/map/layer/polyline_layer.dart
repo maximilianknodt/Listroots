@@ -21,8 +21,8 @@ class PolylineLayer extends LayerBuilder {
         return map.Polyline(
           data: line.data,
           paint: Paint()
-            ..strokeWidth = 4
-            ..color = color,
+            ..strokeWidth = 5
+            ..color = color.withOpacity(0.75),
         );
       }).toList(),
     );
