@@ -12,16 +12,16 @@ class Resultscreen extends StatelessWidget {
   static const String _damage = "Schaden erkannt";
   static const String _noDamage = "Keine Fahrbahnschäden erkannt";
 
-  static int _confValue = 86;
-  String _conf = "Konfidenz: ${_confValue} %";
+  static int _confValue = 86; // TODO: als nicht static nutzen wollen -> wie?
+  String _conf = "Konfidenz: $_confValue %";
 
   static String _lat = "52° 14’271”";
   static String _long = "008° 16’291”";
-  String _position = "Position: ${_lat} | ${_long}";
+  String _position = "Position: $_lat | $_long";
 
   static String _date = "18.11.2022";
   static String _time = "17:42";
-  String _timestamp = "Zeitpunkt: ${_date} ${_time} Uhr";
+  String _timestamp = "Zeitpunkt: $_date $_time Uhr";
 
   static const String _question =
       "Bist du dir sicher, dass es sich hierbei um einen Fahrbahnschaden (wie Wurzelschaden) handelt und du diese Stelle tatsächlich dokumentieren möchtest?";
