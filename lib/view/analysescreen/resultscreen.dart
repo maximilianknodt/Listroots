@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Resultscreen extends StatelessWidget {
   Resultscreen({super.key});
 
-  bool _hasDetected = false;
+  bool _hasDetected = true;
 
   static const String _rDmg = "assets/images/rootDmg.jpg";
   static const double _ratio = 4 / 3;
