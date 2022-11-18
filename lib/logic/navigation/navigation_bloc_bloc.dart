@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:listroots/view/analysescreen/analysescreen.dart';
 import 'package:listroots/view/home/home.dart';
 
 import '../../data/navigation/bottom_navigation_destination.dart';
