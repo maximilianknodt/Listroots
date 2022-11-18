@@ -1,53 +1,50 @@
 import 'package:flutter/material.dart';
 
-class Analysescreen extends StatelessWidget{
+class Analysescreen extends StatelessWidget {
   const Analysescreen({super.key});
 
-  static const String _analyse = "analysiere Fahrbahn";
-  static const String _location = "und ermittle Standort";
+  static const String _analyse =
+      "analysiere Fahrbahn und ermittle Standort"; // TODO: I18N - Implementierung
 
   static const String _asset = "assets/images/road.png";
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title:
+            const Text("manuell dokumentieren"), // TODO: I18N - Implementierung
+      ),
       body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,    // default, hat aber nicht geklappt, daher als Child von Center
-          children: <Widget> [
+          children: <Widget>[
             Expanded(
               flex: 3,
               child: Image.asset(_asset),
             ),
             Expanded(
-              child: Container(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>
-                        (Colors.green.shade900),
-                      ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary),
                     ),
-                    addText(_analyse),
-                    addText(_location),
-                  ],
-                ),
+                  ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 170),
+                    child: Text(
+                      _analyse,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Text addText(String text){
-    return Text(
-      text,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 15,
       ),
     );
   }
