@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../data/navigation/bottom_navigation_destination.dart';
 import '../../view/archive/archive.dart';
 import '../../view/drive/drive.dart';
+import '../../view/drive/recording/active_drive_screen.dart';
 import '../../view/home/home.dart';
 import '../../view/home/info_button.dart';
 import '../../view/map/map.dart';

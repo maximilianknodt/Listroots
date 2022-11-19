@@ -29,11 +29,12 @@ class NavigationDefault extends NavigationState {
           action: (context) => const ProfileIconButton(),
         ),
         BottomNavigationDestination(
-          icon: Icons.list,
-          label: 'Archiv',
-          route: '/archive',
-          destination: (context) => const Archive(),
-        ),
+            icon: Icons.list,
+            label: 'Archiv',
+            route: '/archive',
+            destination: (context) =>
+                const ActiveDriveScreen() // const Archive(),
+            ),
       ];
 }
 

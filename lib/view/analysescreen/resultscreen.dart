@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:latlng/latlng.dart';
@@ -29,7 +28,7 @@ class Resultscreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
           ),
-          onPressed: () {},
+          onPressed: () {}, // TODO: onpressed implementieren
         ),
         title: Text(AppLocalizations.of(context)!.manuellDocumentation),
       ),
@@ -82,7 +81,7 @@ class Resultscreen extends StatelessWidget {
             Spacer(),
             hasDetected
                 ? ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {}, // TODO: onpressed implementieren
                     icon: Icon(Icons.check),
                     label: Text(AppLocalizations.of(context)!.documentation),
                   )
@@ -90,7 +89,7 @@ class Resultscreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {}, // TODO: onpressed implementieren
                         icon: Icon(Icons.check),
                         label: Text(
                             AppLocalizations.of(context)!.stillDocumentation),
@@ -102,7 +101,7 @@ class Resultscreen extends StatelessWidget {
                             foregroundColor:
                                 Theme.of(context).colorScheme.onSecondary,
                           ),
-                          onPressed: () {},
+                          onPressed: () {}, // TODO: onpressed implementieren
                           icon: Icon(Icons.close),
                           label: Text(AppLocalizations.of(context)!.cancel),
                         ),

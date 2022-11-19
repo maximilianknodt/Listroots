@@ -22,7 +22,7 @@ class Drive extends StatelessWidget {
             },
             icon: const Icon(Icons.play_arrow_outlined),
             label: Text(AppLocalizations.of(context)!
-                .aufzeichnungStartenBtn), //TODO EXAMPLE OF Stringoutsourcing
+                .startRecording), //TODO EXAMPLE OF Stringoutsourcing
           ),
           const Divider(color: Colors.transparent),
           TextButton.icon(
@@ -30,7 +30,7 @@ class Drive extends StatelessWidget {
               // TODO: navigate: GoRouter.of(context).push('/drive/documenting');
             },
             icon: const Icon(Icons.linked_camera),
-            label: const Text("Manuell dokumentieren"),
+            label: Text(AppLocalizations.of(context)!.manuellDocumentation),
           ),
         ],
       ),
