@@ -4,7 +4,7 @@ class Analysescreen extends StatelessWidget {
   const Analysescreen({super.key});
 
   static const String _analyse =
-      "analysiere Fahrbahn und ermittle Standort"; // TODO: I18N - Implementierung
+      "analysiere Fahrbahn und ermittle Standort"; // TODO: I18N
 
   static const String _asset = "assets/images/road.png";
 
@@ -12,8 +12,7 @@ class Analysescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text("manuell dokumentieren"), // TODO: I18N - Implementierung
+        title: const Text("manuell dokumentieren"), // TODO: I18N
       ),
       body: Center(
         child: Column(
