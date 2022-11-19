@@ -7,6 +7,8 @@ class ListElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -15,7 +17,7 @@ class ListElement extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 5, top: 2),
+                    padding: EdgeInsets.only(left: 10, top: 5),
                     child: Text(
                       "52° 14'271\" | 008° 16'291\"",
                       style: Theme.of(context).textTheme.bodySmall,
@@ -23,7 +25,7 @@ class ListElement extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(left: 5, bottom: 2),
+                      padding: EdgeInsets.only(left: 10, bottom: 5),
                       child: Text(
                         "13:42 Uhr, 40% Konfidenz",
                         style: Theme.of(context).textTheme.labelSmall,
@@ -34,7 +36,11 @@ class ListElement extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[Icon(Icons.pin_drop_outlined)],
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Icon(Icons.pin_drop_outlined))
+                ],
               )
             ]),
       ),
