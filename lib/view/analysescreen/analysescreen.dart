@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class Analysescreen extends StatelessWidget {
   const Analysescreen({super.key});
-
-  static const String _analyse =
-      "analysiere Fahrbahn und ermittle Standort"; // TODO: I18N
 
   static const String _asset = "assets/images/road.png";
 
@@ -12,7 +10,7 @@ class Analysescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("manuell dokumentieren"), // TODO: I18N
+        title: Text(AppLocalizations.of(context)!.manuellDocumentation),
       ),
       body: Center(
         child: Column(
@@ -34,7 +32,7 @@ class Analysescreen extends StatelessWidget {
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 170),
                     child: Text(
-                      _analyse,
+                      AppLocalizations.of(context)!.analyseStreet,
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),

@@ -1,6 +1,7 @@
 {
     "helloworld": "Hallo Welt",
     "aufzeichnungStartenBtn": "Aufzeichnung starten",
+    "analyseStreet": "analysiere Fahrbahn und ermittle Standort",
     "manuellDocumentation" :"manuell dokumentieren",
     "damageFound": "Schaden erkannt",
     "noDamageFound": "Keine Fahrbahnschäden erkannt",
