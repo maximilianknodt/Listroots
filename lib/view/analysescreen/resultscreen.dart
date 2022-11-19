@@ -1,30 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:latlng/latlng.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class Resultscreen extends StatelessWidget {
-  Resultscreen({super.key});
+  const Resultscreen({
+    super.key,
+    required this.position,
+    required this.timestamp,
+    this.confidence,
+    required this.hasDetected,
+  });
 
-  bool _hasDetected = true;
+  final LatLng position;
+  final DateTime timestamp;
+  final double? confidence; // TODO: refactor
+  final bool hasDetected;
 
   static const String _rDmg = "assets/images/rootDmg.jpg";
-  static const double _ratio = 4 / 3;
-
-  static const String _damage = "Schaden erkannt";
-  static const String _noDamage = "Keine Fahrbahnschäden erkannt";
-
-  static int _confValue = 86; // TODO: als nicht static nutzen wollen -> wie?
-  String _conf = "Konfidenz: $_confValue %";
-
-  static String _lat = "52° 14’271”";
-  static String _long = "008° 16’291”";
-  String _position = "Position: $_lat | $_long";
-
-  static String _date = "18.11.2022";
-  static String _time = "17:42";
-  String _timestamp = "Zeitpunkt: $_date $_time Uhr";
-
-  static const String _question =
-      "Bist du dir sicher, dass es sich hierbei um einen Fahrbahnschaden (wie Wurzelschaden) handelt und du diese Stelle tatsächlich dokumentieren möchtest?";
+  static const double _ratio = 3 / 4;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +31,7 @@ class Resultscreen extends StatelessWidget {
           ),
           onPressed: () {},
         ),
-        title: const Text("manuell dokumentieren"),
+        title: Text(AppLocalizations.of(context)!.manuellDocumentation),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
@@ -44,33 +39,52 @@ class Resultscreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ClipRRect(
-              // TODO: Egal ob AspectRatio, oder ClipRRect zuerst, egal ob mit, oder ohne Container
-              borderRadius: BorderRadius.circular(1000),
+            Expanded(
+              flex: 3,
               child: AspectRatio(
                 aspectRatio: _ratio,
-                child: Image.asset(_rDmg),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    _rDmg,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),
-              child: _hasDetected
-                  ? addtextTitle(context, _damage)
-                  : addtextTitle(context, _noDamage),
+              child: hasDetected
+                  ? _addtextTitle(
+                      context, AppLocalizations.of(context)!.damageFound)
+                  : _addtextTitle(
+                      context, AppLocalizations.of(context)!.noDamageFound),
             ),
-            if (_hasDetected) addTextBody(context, _conf),
-            addTextBody(context, _position),
-            addTextBody(context, _timestamp),
+            if (hasDetected)
+              _addTextBody(
+                context,
+                AppLocalizations.of(context)!.confidence + ": ${confidence} %",
+              ),
+            _addTextBody(
+                context,
+                AppLocalizations.of(context)!.position +
+                    ": ${position.latitude} | ${position.longitude}"),
+            _addTextBody(context, _formattedTimeString(context)),
             Padding(
               padding: EdgeInsets.only(top: 10),
-              child: _hasDetected ? null : addTextBody(context, _question),
+              child: hasDetected
+                  ? null
+                  : _addTextBody(
+                      context,
+                      AppLocalizations.of(context)!.damageNotFoundQuestion,
+                    ),
             ),
             Spacer(),
-            _hasDetected
+            hasDetected
                 ? ElevatedButton.icon(
                     onPressed: () {},
                     icon: Icon(Icons.check),
-                    label: Text("Dokumentieren"),
+                    label: Text(AppLocalizations.of(context)!.documentation),
                   )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,18 +92,20 @@ class Resultscreen extends StatelessWidget {
                       TextButton.icon(
                         onPressed: () {},
                         icon: Icon(Icons.check),
-                        label: Text("ja, trotzdem dokumentieren"),
+                        label: Text(
+                            AppLocalizations.of(context)!.stillDocumentation),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: TextButton.icon(
-                            style: TextButton.styleFrom(
-                                foregroundColor:
-                                    Theme.of(context).colorScheme.onSecondary),
-                            onPressed: () {},
-                            icon: Icon(Icons
-                                .cancel_outlined), // TODO: Icon ohne outline finden
-                            label: Text("abbrechen")),
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                Theme.of(context).colorScheme.onSecondary,
+                          ),
+                          onPressed: () {},
+                          icon: Icon(Icons.close),
+                          label: Text(AppLocalizations.of(context)!.cancel),
+                        ),
                       ),
                     ],
                   ),
@@ -99,14 +115,24 @@ class Resultscreen extends StatelessWidget {
     );
   }
 
-  Text addtextTitle(BuildContext context, String text) {
+  ///
+  String _formattedTimeString(BuildContext context) {
+    DateFormat time = DateFormat("dd.MM.yyyy hh:mm");
+    return AppLocalizations.of(context)!.timestamp +
+        ": " +
+        time.format(timestamp) +
+        " " +
+        AppLocalizations.of(context)!.clock;
+  }
+
+  Text _addtextTitle(BuildContext context, String text) {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium,
     );
   }
 
-  Text addTextBody(BuildContext context, String text) {
+  Text _addTextBody(BuildContext context, String text) {
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium,
