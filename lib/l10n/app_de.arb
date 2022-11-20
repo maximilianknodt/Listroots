@@ -15,5 +15,7 @@
     "cancel": "abbrechen",
     "continuousRecording": "Kontinuierliche Aufzeichnung",
     "recordPosition": "Position aufzeichnen",
-    "stopRide": "Fahrt stoppen"
+    "stopRide": "Fahrt stoppen",
+    "recordingActive": "Aufzeichnung läuft ...",
+    "startedAt": "gestartet um"
 }
