@@ -2,7 +2,7 @@
     "helloworld": "Hallo Welt",
     "startRecording": "Aufzeichnung starten",
     "analyseStreet": "analysiere Fahrbahn und ermittle Standort",
-    "manuellDocumentation" :"Manuell dokumentieren",
+    "manualDocumentation" :"Manuell dokumentieren",
     "damageFound": "Schaden erkannt",
     "noDamageFound": "Keine Fahrbahnschäden erkannt",
     "confidence": "Konfidenz",

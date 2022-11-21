@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:listroots/logic/mode/photo/photo_bloc.dart';
 
 class Drive extends StatelessWidget {
   const Drive({super.key});
@@ -24,14 +26,17 @@ class Drive extends StatelessWidget {
           ),
           const Divider(color: Colors.transparent),
           TextButton.icon(
-            onPressed: () {
-              // TODO: navigate: GoRouter.of(context).push('/drive/documenting');
-            },
+            onPressed: () => _manualDocumentation(context),
             icon: const Icon(Icons.linked_camera),
-            label: Text(AppLocalizations.of(context)!.manuellDocumentation),
+            label: Text(AppLocalizations.of(context)!.manualDocumentation),
           ),
         ],
       ),
     );
+  }
+
+  void _manualDocumentation(BuildContext context) {
+    BlocProvider.of<PhotoBloc>(context).add(Analyze());
+    GoRouter.of(context).push('/documenting');
   }
 }
