@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
+import 'package:listroots/view/home/stats_card.dart';
 
 import '../widgets/map/recorded_trip_map.dart';
 
@@ -11,6 +12,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Center(
           child: SizedBox(
@@ -38,41 +40,28 @@ class Home extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.only(left: 25, top: 45),
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 12),
-                width: 174,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                StatsCard(
+                  title: 'Erkennungen von Schäden (insgesamt)',
+                  value: '42',
                 ),
-                child: Column(children: [
-                  Container(
-                    alignment: Alignment.bottomLeft,
-                    padding: EdgeInsets.only(left: 12),
-                    child: Text(
-                      '42',
-                      style: Theme.of(context).textTheme.displayLarge,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
-                  ),
-                  Text(
-                    'Erkennungen von Schäden (insgesamt)',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ]),
-              ),
-            ],
+                SizedBox(width: 10),
+                StatsCard(
+                  title: 'Erkennungen von Schäden (insgesamt)',
+                  value: '42',
+                ),
+                SizedBox(width: 10),
+                StatsCard(
+                  title: 'Erkennungen von Schäden (insgesamt)',
+                  value: '42',
+                ),
+              ],
+            ),
           ),
         ),
       ],
