@@ -5,6 +5,8 @@ import 'package:latlng/latlng.dart';
 import 'package:listroots/view/home/stats_card.dart';
 
 import '../widgets/map/recorded_trip_map.dart';
+import 'buttons/continous_recording_button.dart';
+import 'buttons/manual_documentation_button.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,6 +16,17 @@ class Home extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(child: ContinousRecordingButton()),
+              VerticalDivider(color: Colors.transparent),
+              Expanded(child: ManualDocumentationButton()),
+            ],
+          ),
+        ),
         Center(
           child: SizedBox(
             height: 300,
