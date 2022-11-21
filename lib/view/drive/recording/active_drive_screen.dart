@@ -11,12 +11,7 @@ class ActiveDriveScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_sharp,
-          ),
-          onPressed: () => GoRouter.of(context).pop(), // TODO: go back to drive
-        ),
+        leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
         title: Text(AppLocalizations.of(context)!.continuousRecording),
       ),
       body: Column(
@@ -24,14 +19,13 @@ class ActiveDriveScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
             child: RecordingDisplay(
-              duration: "Dauer als Zeit",
+              duration: Duration(hours: 2, minutes: 13),
               timestamp: DateTime.now(),
             ),
           ),
           Expanded(
-            // Frage: Warum muss hier auf einmal Expanded hin, damit kein Render Fehler auftritt? 'RenderBox was not laid out'
             child: Stack(
               children: <Widget>[
                 StaticMap(),
@@ -53,39 +47,41 @@ class ActiveDriveScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(25, 10, 25, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      AspectRatio(
-                        aspectRatio: 5 / 3, // TODO: Bildgroesse klaeren
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            "assets/images/rootDmg.jpg",
-                            fit: BoxFit.cover,
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        AspectRatio(
+                          aspectRatio: 5 / 3, // TODO: Bildgroesse klaeren
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              "assets/images/rootDmg.jpg",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: SensorMeter(rash: 0.7),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: TextButton.icon(
-                          onPressed: () {}, // TODO: onpressed implementieren
-                          icon: Icon(Icons.camera_alt),
-                          label: Text(
-                              AppLocalizations.of(context)!.recordPosition),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: SensorMeter(rash: 0.7),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {}, // TODO: onpressed implementieren
-                        icon: Icon(Icons.pause),
-                        label: Text(AppLocalizations.of(context)!.stopRide),
-                      ),
-                    ],
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: TextButton.icon(
+                            onPressed: _savePosition,
+                            icon: Icon(Icons.camera_alt),
+                            label: Text(
+                                AppLocalizations.of(context)!.recordPosition),
+                          ),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: _stopRide,
+                          icon: Icon(Icons.pause),
+                          label: Text(AppLocalizations.of(context)!.stopRide),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -95,16 +91,24 @@ class ActiveDriveScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _savePosition() {}
+
+  void _stopRide() {}
+}
+
+extension DurationFormat on Duration {
+  String format() => this.toString().split('.').first.padLeft(8, "0");
 }
 
 class RecordingDisplay extends StatelessWidget {
-  RecordingDisplay({
+  const RecordingDisplay({
     super.key,
     required this.duration,
     required this.timestamp,
   });
 
-  String duration; //TODO: Typ und Umwandlungimplementierung aendern
+  final Duration duration;
   final DateTime timestamp;
 
   @override
@@ -132,9 +136,7 @@ class RecordingDisplay extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              "$duration (" +
-                  AppLocalizations.of(context)!.startedAt +
-                  " $strTime Uhr)",
+              "${duration.format()} (${AppLocalizations.of(context)!.startedAt} $strTime Uhr)",
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -145,12 +147,13 @@ class RecordingDisplay extends StatelessWidget {
 }
 
 class SensorMeter extends StatelessWidget {
-  SensorMeter({
+  const SensorMeter({
     super.key,
     this.rash = 0.0,
-  });
+  }) : assert(rash >= 0.0 && rash <= 1.0);
 
-  double rash;
+  final double rash;
+  final double height = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +163,7 @@ class SensorMeter extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.primaryContainer,
-              width: 4,
+              width: height,
             ),
             borderRadius: BorderRadius.circular(10),
           ),
@@ -171,7 +174,7 @@ class SensorMeter extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.blue,
-                width: 4,
+                width: height,
               ),
               borderRadius: BorderRadius.circular(10),
             ),
