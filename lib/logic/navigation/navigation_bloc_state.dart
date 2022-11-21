@@ -15,12 +15,12 @@ class NavigationDefault extends NavigationState {
           destination: (context) => const Home(),
           action: (context) => const InfoButton(),
         ),
-        BottomNavigationDestination(
-          icon: Icons.bike_scooter_outlined,
-          label: 'Fahren',
-          route: '/drive',
-          destination: (context) => const Drive(),
-        ),
+        // BottomNavigationDestination(
+        //   icon: Icons.bike_scooter_outlined,
+        //   label: 'Fahren',
+        //   route: '/drive',
+        //   destination: (context) => const Drive(),
+        // ),
         BottomNavigationDestination(
           icon: Icons.map_outlined,
           label: 'Kartenansicht',

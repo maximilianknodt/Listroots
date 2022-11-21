@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ArchiveListelement extends StatelessWidget {
-  const ArchiveListelement({super.key});
+  const ArchiveListelement({
+    super.key,
+    required this.date,
+    required this.value,
+  });
+
+  final String date;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        "22.10.22 13:37 Uhr",
+        date,
         style: Theme.of(context).textTheme.titleSmall,
       ),
       subtitle: Text(
-        "0,37h, 3 Detektionen",
+        value,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: Row(
