@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:listroots/view/drive/documenting/documenting.dart';
 import 'package:listroots/view/drive/recording/active_drive_screen.dart';
 
 import '../../data/navigation/bottom_navigation_destination.dart';
@@ -21,6 +22,11 @@ class AppRouter extends GoRouter {
       GoRoute(
         path: '/recording',
         builder: (context, state) => const ActiveDriveScreen(),
+      ),
+
+      GoRoute(
+        path: '/documenting',
+        builder: (context, state) => const Documenting(),
       ),
 
       // Bottom Navigation Routes (Home, Drive, Map, Archive)
