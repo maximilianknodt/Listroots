@@ -16,7 +16,7 @@ class NavigationDefault extends NavigationState {
           action: (context) => const InfoButton(),
         ),
         BottomNavigationDestination(
-          icon: Icons.bike_scooter_outlined,
+          icon: Icons.pedal_bike_outlined,
           label: 'Fahren',
           route: '/drive',
           destination: (context) => const Drive(),
@@ -29,11 +29,12 @@ class NavigationDefault extends NavigationState {
           action: (context) => const ProfileIconButton(),
         ),
         BottomNavigationDestination(
-          icon: Icons.list,
-          label: 'Archiv',
-          route: '/archive',
-          destination: (context) => const Archive(),
-        ),
+            icon: Icons.list,
+            label: 'Archiv',
+            route: '/archive',
+            destination: (context) =>
+                const ActiveDriveScreen() // const Archive(),
+            ),
       ];
 }
 
