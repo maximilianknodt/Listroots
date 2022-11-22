@@ -26,7 +26,7 @@ class Section extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             child: Row(
               children: [
                 if (leading != null)
@@ -50,6 +50,7 @@ class Section extends StatelessWidget {
             ),
           ),
           child,
+          SizedBox(height: 5),
         ],
       ),
       onTap: onTap,

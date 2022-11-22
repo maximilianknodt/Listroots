@@ -16,7 +16,7 @@ abstract class RecordButtonBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onPressed(context),
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor(context),
@@ -24,6 +24,14 @@ abstract class RecordButtonBase extends StatelessWidget {
           border: borderColor(context) != null
               ? Border.all(color: borderColor(context)!)
               : null,
+          boxShadow: [
+            BoxShadow(
+              color: backgroundColor(context).withOpacity(0.5),
+              spreadRadius: 0,
+              blurRadius: 20,
+              offset: const Offset(0, 5), // changes position of shadow
+            ),
+          ],
         ),
         child: Stack(
           children: [
