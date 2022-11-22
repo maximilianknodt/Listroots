@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:listroots/view/home/stats_card.dart';
 
+import '../widgets/general/section.dart';
 import '../widgets/map/recorded_trip_map.dart';
 import 'buttons/continous_recording_button.dart';
 import 'buttons/manual_documentation_button.dart';
