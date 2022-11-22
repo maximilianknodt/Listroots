@@ -1,5 +1,6 @@
 import 'package:latlng/latlng.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as toolkit;
+
 part 'directional_extremes.dart';
 part 'lat_lng_converter.dart';
 

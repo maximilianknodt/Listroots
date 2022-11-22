@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:listroots/view/home/buttons/record_button_base.dart';
+import 'record_button_base.dart';
 
 class ContinousRecordingButton extends RecordButtonBase {
   const ContinousRecordingButton({super.key})

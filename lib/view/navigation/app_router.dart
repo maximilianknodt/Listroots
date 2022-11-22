@@ -1,10 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:listroots/view/drive/documenting/resultscreen.dart';
-import 'package:listroots/view/drive/documenting/documenting.dart';
-import 'package:listroots/view/drive/recording/active_drive_screen.dart';
-
+import '../drive/documenting/resultscreen.dart';
+import '../drive/documenting/documenting.dart';
+import '../drive/recording/active_drive_screen.dart';
 
 import '../../data/navigation/bottom_navigation_destination.dart';
 import '../../logic/navigation/navigation_bloc_bloc.dart';

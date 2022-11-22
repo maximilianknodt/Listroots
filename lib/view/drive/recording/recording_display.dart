@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:intl/intl.dart';
 
 extension DurationFormat on Duration {
   String format() => this.toString().split('.').first.padLeft(8, "0");
