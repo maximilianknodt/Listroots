@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'listelement_detail.dart';
+
 class ArchiveListelement extends StatelessWidget {
   const ArchiveListelement({
     super.key,
@@ -24,9 +26,10 @@ class ArchiveListelement extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.upload,
+          IconButton(
+            icon: Icon(Icons.upload_outlined),
             color: Theme.of(context).colorScheme.secondary,
+            onPressed: () {},
           ),
           Icon(
             Icons.chevron_right,
@@ -34,6 +37,14 @@ class ArchiveListelement extends StatelessWidget {
           )
         ],
       ),
+      dense: true,
+      visualDensity: VisualDensity(
+          horizontal: VisualDensity.minimumDensity,
+          vertical: VisualDensity.minimumDensity),
+      onTap: (() {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ListelementDetail()));
+      }),
     );
   }
 }

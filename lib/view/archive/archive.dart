@@ -16,12 +16,12 @@ class Archive extends StatelessWidget {
                 date: "22.10.22 13:37 Uhr",
                 value: "0:37h, 3 Detektionen",
               ),
-              // SizedBox(height: 1),
+              SizedBox(height: 5),
               ArchiveListelement(
                 date: "23.10.22 14:37 Uhr",
                 value: "1:15h, 2 Detektionen",
               ),
-              // SizedBox(height: 1),
+              SizedBox(height: 5),
               ArchiveListelement(
                 date: "23.10.22 18:00 Uhr",
                 value: "0:20h, 3 Detektionen",
@@ -33,12 +33,14 @@ class Archive extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               ArchiveListelement(
                 date: "22.10.22 13:37 Uhr",
                 value: "80% Konfidenz",
               ),
-              // SizedBox(height: 1),
+              SizedBox(height: 5),
               ArchiveListelement(
                 date: "22.10.22 13:37 Uhr",
                 value: "70% Konfidenz",

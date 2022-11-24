@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class ListelementDetail extends StatelessWidget {
+  const ListelementDetail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Listelement Detail',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+    );
+  }
+}
