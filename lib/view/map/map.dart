@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlng/latlng.dart';
 
 import '../../data/map/polyline.dart';
+import '../../logic/geo/gps/gps_bloc.dart';
 import '../../logic/map_settings/map_settings_bloc.dart';
 import '../widgets/map/interactive_map.dart';
 import 'message_banner_list.dart';
@@ -14,8 +17,11 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MapSettingsBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => MapSettingsBloc()),
+        BlocProvider(create: (context) => GpsBloc()),
+      ],
       child: const _MapPage(),
     );
   }
@@ -57,39 +63,7 @@ class _MapState extends State<_MapPage> {
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(30), // TODO: theme extension
           ),
-          child: BlocBuilder<MapSettingsBloc, MapSettingsState>(
-            builder: (context, state) {
-              return InteractiveMap(
-                onTap: _mapTap,
-                mapType: state.mapType,
-                location: const LatLng(
-                    52.283954, 8.0225185), // TODO: real data & state management
-                markers: const [
-                  LatLng(52.29, 8.023), // TODO: real data & state management
-                ],
-                polylines: state.shownOSMSmoothness
-                    ? const [
-                        Polyline([
-                          // TODO: real data & state management
-                          LatLng(52.283954, 8.0225185),
-                          LatLng(52.2839, 8.02251),
-                          LatLng(52.29, 8.023),
-                          LatLng(52.29, 8.026),
-                          LatLng(52.2889, 8.032),
-                        ]),
-                        Polyline.colored([
-                          // TODO: real data & state management
-                          LatLng(52.2832954, 8.0225185),
-                          LatLng(52.2832954, 8.0295185),
-                          LatLng(52.2802954, 8.0235185),
-                          LatLng(52.2812954, 8.0233185),
-                          LatLng(52.2812000, 8.0223185),
-                        ], color: Colors.amber),
-                      ]
-                    : [],
-              );
-            },
-          ),
+          child: MapPageMap(onMapTap: _mapTap),
         ),
         const MessageBannerList(),
         SettingsSheet(
@@ -108,12 +82,6 @@ class _MapState extends State<_MapPage> {
         ),
       ],
     );
-  }
-
-  void _mapTap(location) {
-    if (_isExpanded) {
-      _onPressedFAB();
-    }
   }
 
   void _onPressedFAB() async {
@@ -135,5 +103,64 @@ class _MapState extends State<_MapPage> {
     double size = _controller.pixelsToSize(_controller.pixels);
     _isExpanded = size > _threshold;
     setState(() => _bottom = widget._baseOffset + _controller.pixels);
+  }
+
+  void _mapTap(location) {
+    if (_isExpanded) {
+      _onPressedFAB();
+    }
+  }
+}
+
+// TODO: move to own file
+class MapPageMap extends StatelessWidget {
+  const MapPageMap({super.key, this.onMapTap});
+
+  final Function(LatLng)? onMapTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<GpsBloc, GpsState>(
+      builder: (context, state) {
+        final LatLng? location;
+        if (state is GpsLocation) {
+          location = state.location;
+        } else {
+          location = null;
+        }
+        return BlocBuilder<MapSettingsBloc, MapSettingsState>(
+          builder: (context, state) {
+            return InteractiveMap(
+              onTap: onMapTap,
+              mapType: state.mapType,
+              location: location,
+              markers: const [
+                LatLng(52.29, 8.023), // TODO: real data & state management
+              ],
+              polylines: state.shownOSMSmoothness
+                  ? const [
+                      Polyline([
+                        // TODO: real data & state management
+                        LatLng(52.283954, 8.0225185),
+                        LatLng(52.2839, 8.02251),
+                        LatLng(52.29, 8.023),
+                        LatLng(52.29, 8.026),
+                        LatLng(52.2889, 8.032),
+                      ]),
+                      Polyline.colored([
+                        // TODO: real data & state management
+                        LatLng(52.2832954, 8.0225185),
+                        LatLng(52.2832954, 8.0295185),
+                        LatLng(52.2802954, 8.0235185),
+                        LatLng(52.2812954, 8.0233185),
+                        LatLng(52.2812000, 8.0223185),
+                      ], color: Colors.amber),
+                    ]
+                  : [],
+            );
+          },
+        );
+      },
+    );
   }
 }
