@@ -15,9 +15,6 @@ class TuneFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15), // TODO: theme extension
-      ),
       onPressed: _onPressed,
       child: _isOpen
           ? const RotatedBox(

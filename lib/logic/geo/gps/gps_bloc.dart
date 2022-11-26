@@ -17,6 +17,21 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
     on<GpsPositionChanged>(_gpsPositionChanged);
   }
 
+  Future<LatLng?> get currentLocation async {
+    if (state is GpsPositionChanged) {
+      return (state as GpsPositionChanged).location;
+    } else {
+      final permission = await Geolocator.checkPermission();
+      final always = permission == LocationPermission.always;
+      final whileInUse = permission == LocationPermission.whileInUse;
+      if (always || whileInUse) {
+        final pos = await Geolocator.getCurrentPosition();
+        return LatLng(pos.latitude, pos.longitude);
+      }
+    }
+    return null;
+  }
+
   void _gpsPositionChanged(GpsPositionChanged event, Emitter<GpsState> emit) {
     //log('GpsPositionChanged: ${event.location.latitude}, ${event.location.longitude}');
     emit(GpsLocation(location: event.location));

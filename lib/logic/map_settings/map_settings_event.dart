@@ -5,20 +5,27 @@ abstract class MapSettingsEvent {
   const MapSettingsEvent();
 }
 
-class MapSettingsEventSetMapType extends MapSettingsEvent {
+class SetMapTypeEvent extends MapSettingsEvent {
   final MapType mapType;
 
-  const MapSettingsEventSetMapType(this.mapType);
+  const SetMapTypeEvent(this.mapType);
 }
 
-class MapSettingsEventToggleOwnDetections extends MapSettingsEvent {
-  const MapSettingsEventToggleOwnDetections();
+class ToggleOwnDetectionsEvent extends MapSettingsEvent {
+  const ToggleOwnDetectionsEvent();
 }
 
-class MapSettingsEventToggleForeignDetections extends MapSettingsEvent {
-  const MapSettingsEventToggleForeignDetections();
+class ToggleForeignDetectionsEvent extends MapSettingsEvent {
+  const ToggleForeignDetectionsEvent();
 }
 
-class MapSettingsEventToggleOsmSmoothness extends MapSettingsEvent {
-  const MapSettingsEventToggleOsmSmoothness();
+class ToggleOsmSmoothnessEvent extends MapSettingsEvent {
+  const ToggleOsmSmoothnessEvent();
+}
+
+class SetMapCenterEvent extends MapSettingsEvent {
+  final LatLng? center;
+  final bool loading;
+
+  const SetMapCenterEvent(this.center) : loading = center == null;
 }

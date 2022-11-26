@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/general/blur.dart';
+import '../../widgets/general/blur.dart';
 
 class OverlayedMessageBanner extends StatelessWidget {
   const OverlayedMessageBanner({
