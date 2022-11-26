@@ -18,6 +18,7 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   void _gpsPositionChanged(GpsPositionChanged event, Emitter<GpsState> emit) {
+    //log('GpsPositionChanged: ${event.location.latitude}, ${event.location.longitude}');
     emit(GpsLocation(location: event.location));
   }
 
@@ -30,14 +31,29 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
 
     if (state is GpsError || state is GpsDenied) {
       log('GPS can not be initialized');
+      if (state is GpsDenied) {
+        log(state.permission.toString());
+      }
       _positionStream = null;
       return;
     } else {
       log('GPS initialized');
       _positionStream = Geolocator.getPositionStream().listen(
-        (e) => this.add(GpsPositionChanged(LatLng(e.latitude, e.longitude))),
+        _positionStreamListener,
+        onError: (e) => _positionStream?.cancel(),
         cancelOnError: true,
       );
+    }
+  }
+
+  void _positionStreamListener(Position position) {
+    final latLng = LatLng(position.latitude, position.longitude);
+    final event = GpsPositionChanged(latLng);
+    try {
+      add(event);
+    } on StateError catch (e) {
+      log(e.runtimeType.toString() + " caught");
+      _positionStream?.cancel();
     }
   }
 

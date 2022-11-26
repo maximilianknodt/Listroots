@@ -4,13 +4,12 @@ import 'package:map/map.dart' show MapController;
 
 import '../../../data/map/map_type.dart';
 import '../../../data/map/polyline.dart';
-import 'current_location_marker_dot.dart';
 import 'interactive_map_viewer.dart';
 import 'layer/color_filtered_map_tile_layer.dart';
+import 'layer/gps_location_layer.dart';
 import 'layer/map_tile_layer.dart';
 import 'layer/marker_layer.dart';
 import 'layer/polyline_layer.dart';
-import 'layer/single_location_layer.dart';
 import 'map_base.dart';
 
 class InteractiveMap extends MapBase {
@@ -91,12 +90,8 @@ class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
           markers: widget.markers,
           backgroundColor: widget.mapType.backgroundColor,
         ),
-        SingleLocationLayer(
-          location: widget.location,
-          builder: (_, offset) => CurrentLocationMarkerDot(
-            offset: offset,
-            backgroundColor: widget.mapType.backgroundColor,
-          ),
+        GpsLocationLayer(
+          backgroundColor: widget.mapType.backgroundColor,
         ),
       ],
     );
