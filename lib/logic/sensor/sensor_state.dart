@@ -26,6 +26,7 @@ class SensorRecording extends SensorState {
 
   List<double> _normalize(Iterable<double> values) {
     if (values.isEmpty) return [];
+    if (values.length == 1) return [1];
     double max = values.reduce((curr, next) => curr > next ? curr : next);
     double min = values.reduce((curr, next) => curr < next ? curr : next);
     double range = max - min;

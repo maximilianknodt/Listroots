@@ -1,12 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../logic/sensor/sensor_bloc.dart';
 
 class SensorMeter extends StatelessWidget {
-  const SensorMeter({
-    super.key,
-    this.rash = 0.0,
-  }) : assert(rash >= 0.0 && rash <= 1.0);
+  const SensorMeter({super.key});
 
-  final double rash;
   final double height = 3;
 
   @override
@@ -22,17 +23,32 @@ class SensorMeter extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        FractionallySizedBox(
-          widthFactor: rash,
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.blue,
-                width: height,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+        BlocBuilder<SensorBloc, SensorState>(
+          builder: (context, state) {
+            if (state is SensorRecording) {
+              final accSums = state.normalizedAccelerometerSums;
+              final gyroSums = state.normalizedGyroscopeSums;
+              double acc = accSums.isEmpty ? 0 : accSums.last;
+              double gyro = gyroSums.isEmpty ? 0 : gyroSums.last;
+              double ratio = ((acc + gyro) / 2).abs().toDouble();
+              log(ratio.toStringAsFixed(4));
+
+              return FractionallySizedBox(
+                widthFactor: ratio,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: height,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          },
         ),
       ],
     );

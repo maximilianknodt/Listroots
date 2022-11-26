@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -48,18 +49,33 @@ class SensorBloc extends Bloc<SensorEvent, SensorState> {
       }
     }
 
-    _accelerometerSubscription = userAccelerometerEvents.listen((event) {
-      add(SensorsUpdate(
-        accelerometerEvent: event,
-        timestamp: DateTime.now(),
-      ));
-    });
-    _gyroscopeSubscription = gyroscopeEvents.listen((event) {
-      add(SensorsUpdate(
-        gyroscopeEvent: event,
-        timestamp: DateTime.now(),
-      ));
-    });
+    _accelerometerSubscription = userAccelerometerEvents.listen(
+      (event) {
+        try {
+          add(SensorsUpdate(
+            accelerometerEvent: event,
+            timestamp: DateTime.now(),
+          ));
+        } on StateError catch (_) {
+          _accelerometerSubscription?.cancel();
+        }
+      },
+      onError: (e) => _accelerometerSubscription?.cancel(),
+    );
+
+    _gyroscopeSubscription = gyroscopeEvents.listen(
+      (event) {
+        try {
+          add(SensorsUpdate(
+            gyroscopeEvent: event,
+            timestamp: DateTime.now(),
+          ));
+        } on StateError catch (_) {
+          _gyroscopeSubscription?.cancel();
+        }
+      },
+      onError: (e) => _gyroscopeSubscription?.cancel(),
+    );
   }
 
   SensorRecording _updateSensorRecording(SensorsUpdate event) {
