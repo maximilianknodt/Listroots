@@ -1,4 +1,4 @@
-import '../../logic/map_settings/map_settings_bloc.dart';
+import '../../logic/map/settings/map_settings_bloc.dart';
 import 'map_type.dart';
 
 class MapSettings {

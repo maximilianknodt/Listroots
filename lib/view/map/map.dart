@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlng/latlng.dart';
 
 import '../../data/map/polyline.dart';
-import '../../logic/map_settings/map_settings_bloc.dart';
+import '../../logic/auth/auth_bloc.dart';
+import '../../logic/map/messaging/map_messaging_bloc.dart';
+import '../../logic/map/settings/map_settings_bloc.dart';
 import '../widgets/map/interactive_map.dart';
 import 'message_banner_list.dart';
 import 'settings/settings_sheet.dart';
@@ -14,8 +16,14 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MapSettingsBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => MapSettingsBloc()),
+        BlocProvider(create: (context) {
+          final authBloc = context.read<AuthBloc>();
+          return MapMessagingBloc(authBloc: authBloc);
+        }),
+      ],
       child: const _MapPage(),
     );
   }

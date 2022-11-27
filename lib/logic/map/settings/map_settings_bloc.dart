@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/map/map_settings.dart';
-import '../../data/map/map_settings_repository.dart';
-import '../../data/map/map_type.dart';
+import '../../../data/map/map_settings.dart';
+import '../../../data/map/map_settings_repository.dart';
+import '../../../data/map/map_type.dart';
 
 part 'map_settings_event.dart';
 part 'map_settings_state.dart';
