@@ -14,7 +14,7 @@ class BannerMessage {
     required this.title,
     this.isStationary = false,
     this.onPressed,
-  }) : key = key ?? UniqueKey();
+  }) : key = key ?? ValueKey(UniqueKey());
 }
 
 enum BannerMessageType {

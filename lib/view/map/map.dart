@@ -68,7 +68,7 @@ class _MapState extends State<_MapPage> {
           child: BlocBuilder<MapSettingsBloc, MapSettingsState>(
             builder: (context, state) {
               return InteractiveMap(
-                onTap: _mapTap,
+                onTap: (pos) => _mapTap(context, pos),
                 mapType: state.mapType,
                 location: const LatLng(
                     52.283954, 8.0225185), // TODO: real data & state management
@@ -118,7 +118,7 @@ class _MapState extends State<_MapPage> {
     );
   }
 
-  void _mapTap(location) {
+  void _mapTap(BuildContext context, LatLng location) {
     if (_isExpanded) {
       _onPressedFAB();
     }

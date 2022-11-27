@@ -14,22 +14,31 @@ class MessageBannerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.topCenter,
       margin: const EdgeInsets.all(20),
-      child: BlocBuilder<MapMessagingBloc, MapMessagingState>(
-        builder: (context, state) {
-          log('MessageBannerList: ${state.messages.map((e) => e.title)}');
-          return Column(
-            children: state.messages.map((message) {
-              return OverlayedMessageBanner(
-                leading: message.type.icon,
-                isStationary: message.isStationary,
-                onPressed: message.onPressed,
-                child: Text(message.title),
-              );
-              //const Divider(color: Colors.transparent),]
-            }).toList(),
-          );
-        },
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.3,
+        ),
+        child: BlocBuilder<MapMessagingBloc, MapMessagingState>(
+          builder: (context, state) {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: state.messages.length,
+              separatorBuilder: (_, __) => Divider(color: Colors.transparent),
+              itemBuilder: (context, index) {
+                final message = state.messages[index];
+                return OverlayedMessageBanner(
+                  leading: message.type.icon,
+                  isStationary: message.isStationary,
+                  onPressed: message.onPressed,
+                  child: Text(message.title),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

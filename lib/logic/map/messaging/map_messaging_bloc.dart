@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
@@ -17,7 +18,7 @@ class MapMessagingBloc extends Bloc<MapMessagingEvent, MapMessagingState> {
 
   MapMessagingBloc({
     required this.authBloc,
-    this.duration = const Duration(seconds: 5),
+    this.duration = const Duration(seconds: 3),
   }) : super(MapMessagingInitial()) {
     on<MapMessagingEvent>((event, emit) {
       // TODO: implement event handler
@@ -35,14 +36,14 @@ class MapMessagingBloc extends Bloc<MapMessagingEvent, MapMessagingState> {
     if (state is Unauthenticated) {
       add(AddMessage(
         BannerMessage(
-          key: Key('auth_message_unauthenticated'),
+          key: ValueKey('auth_message_unauthenticated'),
           type: BannerMessageType.error,
           title: 'Du bist nicht bei OSM eingeloggt!',
           isStationary: true,
         ),
       ));
     } else {
-      add(RemoveMessage(Key('auth_message_unauthenticated')));
+      add(RemoveMessage(ValueKey('auth_message_unauthenticated')));
     }
   }
 
@@ -57,8 +58,9 @@ class MapMessagingBloc extends Bloc<MapMessagingEvent, MapMessagingState> {
 
   FutureOr<void> _removeMessage(RemoveMessage event, emit) {
     final List<BannerMessage> messages = state.messages;
+    final int length = messages.length;
     messages.removeWhere((message) => message.key == event.key);
-    if (messages.length != state.messages.length) {
+    if (messages.length != length) {
       emit(MapMessagingLoaded(messages));
     }
   }
