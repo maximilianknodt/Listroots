@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class Drive extends StatelessWidget {
   const Drive({super.key});
@@ -20,7 +21,8 @@ class Drive extends StatelessWidget {
               // TODO: navigate: GoRouter.of(context).pushNamed('/drive/recording');
             },
             icon: const Icon(Icons.play_arrow_outlined),
-            label: const Text("Aufzeichnung starten"),
+            label: Text(AppLocalizations.of(context)!
+                .aufzeichnungStartenBtn), //TODO EXAMPLE OF Stringoutsourcing
           ),
           const Divider(color: Colors.transparent),
           TextButton.icon(

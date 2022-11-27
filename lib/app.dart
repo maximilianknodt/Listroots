@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'global_bloc_provider.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
@@ -27,6 +28,15 @@ class _ListrootsApp extends StatelessWidget {
       theme: AppColorTheme().theme,
       darkTheme: AppColorTheme().darkTheme,
       routerConfig: AppRouter(context: context),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('de', ''),
+      ],
     );
   }
 }
