@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:listroots/logic/auth/auth_bloc.dart';
 
 import 'logic/navigation/navigation_bloc_bloc.dart';
+import 'logic/archive/archive_bloc.dart';
 
 /// The top most location for [BlocProvider]s.
 ///

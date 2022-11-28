@@ -5,10 +5,12 @@ class ListelementDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Listelement Detail',
-        style: Theme.of(context).textTheme.titleLarge,
+    return Scaffold(
+      body: Center(
+        child: Text(
+          'Listelement Detail',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
     );
   }
