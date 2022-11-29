@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@Deprecated("Use AnimatedCurrentLocationMarkerDot instead")
 class CurrentLocationMarkerDot extends StatefulWidget {
   const CurrentLocationMarkerDot({
     Key? key,

@@ -48,6 +48,7 @@ dependencies:
   maps_toolkit: ^2.0.1
   shared_preferences: ^2.0.15
   blobs: ^2.0.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

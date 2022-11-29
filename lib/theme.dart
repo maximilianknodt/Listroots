@@ -74,9 +74,12 @@ class AppColorTheme {
           fillColor: MaterialStateProperty.all(_primary),
           checkColor: MaterialStateProperty.all(_primaryContainer),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: _primary,
           foregroundColor: _canvas,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
         scaffoldBackgroundColor: _background,
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_lightColorSheme),
@@ -111,9 +114,12 @@ class AppColorTheme {
           fillColor: MaterialStateProperty.all(_primaryDark),
           checkColor: MaterialStateProperty.all(_primaryContainerDark),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: _primaryDark,
           foregroundColor: _canvasDark,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_darkColorScheme),
         scaffoldBackgroundColor: _darkColorScheme.background,

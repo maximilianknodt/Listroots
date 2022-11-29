@@ -6,11 +6,11 @@ import '../../../data/map/polyline.dart';
 abstract class MapBase extends StatelessWidget {
   const MapBase({
     super.key,
-    this.center = const LatLng(52.283954, 8.0225185),
+    LatLng? center,
     this.zoom = 15,
     this.markers,
     this.polylines,
-  });
+  }) : center = center ?? const LatLng(52.283954, 8.0225185);
 
   final LatLng center;
   final double zoom;
