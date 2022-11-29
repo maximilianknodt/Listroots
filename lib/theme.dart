@@ -98,6 +98,7 @@ class AppColorTheme {
             minWidth: 50,
           ),
         ),
+        cardTheme: _cardTheme,
       );
 
   ThemeData get darkTheme => ThemeData(
@@ -123,6 +124,14 @@ class AppColorTheme {
         textButtonTheme: _textButtonTheme(const Color(
             0xFF29341D)), // TODO: use _primaryContainerDark after merge
         outlinedButtonTheme: OutlinedButtonThemeData(style: _baseButtonStyle),
+        cardTheme: _cardTheme,
+      );
+
+  CardTheme get _cardTheme => CardTheme(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
       );
 
   TextTheme get _textTheme => TextTheme(

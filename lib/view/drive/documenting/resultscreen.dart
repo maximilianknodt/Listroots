@@ -1,22 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:latlng/latlng.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class Resultscreen extends StatelessWidget {
-  const Resultscreen({
-    super.key,
-    required this.position,
-    required this.timestamp,
-    this.confidence,
-    required this.hasDetected,
-  });
+  Resultscreen({super.key});
 
-  final LatLng position;
-  final DateTime timestamp;
-  final double? confidence; // TODO: refactor
-  final bool hasDetected;
+  final LatLng position = LatLng(51.5, -0.09);
+  final DateTime timestamp = DateTime(2023, 1, 1);
+  final double? confidence = 0.8;
+  final bool hasDetected = true;
 
   static const String _rDmg = "assets/images/rootDmg.jpg";
   static const double _ratio = 3 / 4;
@@ -25,13 +18,7 @@ class Resultscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_sharp,
-          ),
-          onPressed: () {},
-        ),
-        title: Text(AppLocalizations.of(context)!.manuellDocumentation),
+        title: Text(AppLocalizations.of(context)!.manualDocumentation),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
@@ -80,35 +67,37 @@ class Resultscreen extends StatelessWidget {
                     ),
             ),
             Spacer(),
-            hasDetected
-                ? ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.check),
-                    label: Text(AppLocalizations.of(context)!.documentation),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.check),
-                        label: Text(
-                            AppLocalizations.of(context)!.stillDocumentation),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                            foregroundColor:
-                                Theme.of(context).colorScheme.onSecondary,
-                          ),
-                          onPressed: () {},
-                          icon: Icon(Icons.close),
-                          label: Text(AppLocalizations.of(context)!.cancel),
+            SafeArea(
+              child: hasDetected
+                  ? ElevatedButton.icon(
+                      onPressed: () {}, // TODO: onpressed implementieren
+                      icon: Icon(Icons.check),
+                      label: Text(AppLocalizations.of(context)!.documentation),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () {}, // TODO: onpressed implementieren
+                          icon: Icon(Icons.check),
+                          label: Text(
+                              AppLocalizations.of(context)!.stillDocumentation),
                         ),
-                      ),
-                    ],
-                  ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: TextButton.icon(
+                            style: TextButton.styleFrom(
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onSecondary,
+                            ),
+                            onPressed: () {}, // TODO: onpressed implementieren
+                            icon: Icon(Icons.close),
+                            label: Text(AppLocalizations.of(context)!.cancel),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ],
         ),
       ),
