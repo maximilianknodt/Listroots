@@ -31,7 +31,7 @@ class SensorMeter extends StatelessWidget {
               double acc = accSums.isEmpty ? 0 : accSums.last;
               double gyro = gyroSums.isEmpty ? 0 : gyroSums.last;
               double ratio = ((acc + gyro) / 2).abs().toDouble();
-              log(ratio.toStringAsFixed(4));
+              ratio = ratio.clamp(0.0001, 1);
 
               return FractionallySizedBox(
                 widthFactor: ratio,
