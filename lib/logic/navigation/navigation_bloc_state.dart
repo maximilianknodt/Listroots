@@ -16,7 +16,7 @@ class NavigationDefault extends NavigationState {
           action: (context) => const InfoButton(),
         ),
         BottomNavigationDestination(
-          icon: Icons.bike_scooter_outlined,
+          icon: Icons.pedal_bike_outlined,
           label: 'Fahren',
           route: '/drive',
           destination: (context) => const Drive(),

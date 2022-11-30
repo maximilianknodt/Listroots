@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
+@Deprecated("Use AnimatedCurrentLocationMarkerDot instead")
 class CurrentLocationMarkerDot extends StatefulWidget {
   const CurrentLocationMarkerDot({
     Key? key,
     required this.offset,
+    this.color,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Offset offset;
+  final Color? color;
+  final Color? backgroundColor;
 
   @override
   State<CurrentLocationMarkerDot> createState() =>
@@ -17,13 +22,15 @@ class _CurrentLocationMarkerDotState extends State<CurrentLocationMarkerDot>
     with SingleTickerProviderStateMixin {
   late final Animation<double> _animation;
   late final AnimationController _controller;
-  final double size = 26.0;
+  final double size = 30.0;
+  final double edgePercentage = 0.1;
+  final int animationDuration = 1750;
 
   @override
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: animationDuration),
     );
     final Animation<double> curve = CurvedAnimation(
       parent: _controller,
@@ -35,28 +42,28 @@ class _CurrentLocationMarkerDotState extends State<CurrentLocationMarkerDot>
     super.initState();
   }
 
+  double get _blurRadius => _animation.value * size;
+  double get _dotSize => size - _animation.value * size * edgePercentage;
+  double get _edgeInsets => _animation.value * size * edgePercentage + 2;
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: widget.offset.dx - size / 2,
-      top: widget.offset.dy - size / 2,
-      width: size,
-      height: size,
+      left: widget.offset.dx - _dotSize / 2,
+      top: widget.offset.dy - _dotSize / 2,
+      width: _dotSize,
+      height: _dotSize,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: widget.backgroundColor ??
+              Theme.of(context).colorScheme.primaryContainer,
           shape: BoxShape.circle,
         ),
-        padding: const EdgeInsets.all(3),
+        padding: EdgeInsets.all(_edgeInsets),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: widget.color ?? Colors.blue,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.background,
-              width: 0,
-              strokeAlign: StrokeAlign.inside,
-            ),
             boxShadow: [
               BoxShadow(
                 color: Colors.blueAccent,
@@ -69,8 +76,6 @@ class _CurrentLocationMarkerDotState extends State<CurrentLocationMarkerDot>
       ),
     );
   }
-
-  double get _blurRadius => _animation.value * 30;
 
   @override
   void dispose() {
