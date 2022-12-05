@@ -32,7 +32,7 @@ class NavigationDefault extends NavigationState {
           icon: Icons.list,
           label: 'Archiv',
           route: '/archive',
-          destination: (context) => const Archive(),
+          destination: (context) =>  Archive(),
         ),
       ];
 }
