@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'global_bloc_provider.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
+import 'view/splash/splash.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

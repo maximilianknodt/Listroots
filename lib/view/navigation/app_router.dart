@@ -24,10 +24,9 @@ class AppRouter extends GoRouter {
           pageBuilder: (context, state) => FadeTransitionPage(
             key: state.pageKey,
             child: MainScaffold(
-              action: element.action?.call(context),
-              title: Text(element.label),
-              child: element.destination(context)
-            ),
+                action: element.action?.call(context),
+                title: Text(element.label),
+                child: element.destination(context)),
           ),
         );
       }).toList(),
