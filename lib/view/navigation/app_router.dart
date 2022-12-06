@@ -5,17 +5,23 @@ import 'package:go_router/go_router.dart';
 import '../../data/navigation/bottom_navigation_destination.dart';
 import '../../logic/navigation/navigation_bloc_bloc.dart';
 import '../main_scaffold.dart';
+import '../splash/splash.dart';
 import 'fade_page.dart';
 
 class AppRouter extends GoRouter {
   AppRouter({required BuildContext context})
       : super(
-          initialLocation: _initialLocation(context),
+          initialLocation: '/splash',
           routes: _routes(context),
         );
 
   static List<RouteBase> _routes(BuildContext context) {
     return [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const Splash(),
+      ),
+
       // Bottom Navigation Routes (Home, Drive, Map, Archive)
       ..._destinations(context).map((element) {
         return GoRoute(

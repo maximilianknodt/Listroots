@@ -2,25 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../home/home.dart';
 
-class Splash extends StatefulWidget {
+class Splash extends StatelessWidget {
   const Splash({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
-  @override
-  void initState() {
-    super.initState();
-    _navigatetohome();
-  }
-
-  _navigatetohome() async {
-    await Future.delayed(Duration(seconds: 3), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +32,7 @@ class _SplashState extends State<Splash> {
         ),
       ),
       bottomSheet: Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         color: Theme.of(context).colorScheme.background,
         child: (Text(
           'Ein Projekt von Christoph Hüsemann, Jannis Gärtner, Lukas Lübberding, Alexander Führs, Thorben Fabrewitz und Maximilian Knodt',
@@ -60,3 +43,20 @@ class _SplashState extends State<Splash> {
     );
   }
 }
+
+// class _SplashState extends State<Splash> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     _navigatetohome();
+//   }
+
+//   _navigatetohome() async {
+//     await Future.delayed(Duration(seconds: 3), () {});
+//     Navigator.pushReplacement(
+//         context, MaterialPageRoute(builder: (context) => Home()));
+//   }
+
+//   @override
+  
+// }
