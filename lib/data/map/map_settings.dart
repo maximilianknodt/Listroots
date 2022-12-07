@@ -1,6 +1,6 @@
+import '../../logic/map/settings/map_settings_bloc.dart';
 import 'package:latlng/latlng.dart';
 
-import '../../logic/map_settings/map_settings_bloc.dart';
 import 'map_type.dart';
 
 class MapSettings {

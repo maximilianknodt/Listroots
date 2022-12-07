@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/map_settings/map_settings_bloc.dart';
+import '../../../logic/map/settings/map_settings_bloc.dart';
 import 'checkbox_map_setting.dart';
 import 'map_type_selection_buttons.dart';
 

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latlng/latlng.dart';
 
+import '../../data/map/polyline.dart';
+import '../../logic/auth/auth_bloc.dart';
+import '../../logic/map/messaging/map_messaging_bloc.dart';
+import '../../logic/map/settings/map_settings_bloc.dart';
+import '../widgets/map/interactive_map.dart';
 import '../../logic/geo/gps/gps_bloc.dart';
-import '../../logic/map_settings/map_settings_bloc.dart';
 import 'buttons/focus_gps_pos_fab.dart';
 import 'buttons/tune_fab.dart';
 import 'map_page_map.dart';
@@ -17,6 +22,10 @@ class Map extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => MapSettingsBloc()),
+        BlocProvider(create: (context) {
+          final authBloc = context.read<AuthBloc>();
+          return MapMessagingBloc(authBloc: authBloc);
+        }),
         BlocProvider(create: (context) => GpsBloc()..add(InitGpsStream())),
       ],
       child: const _MapPage(),
@@ -60,7 +69,39 @@ class _MapState extends State<_MapPage> {
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(30), // TODO: theme extension
           ),
-          child: MapPageMap(onMapTap: _mapTap),
+          child: BlocBuilder<MapSettingsBloc, MapSettingsState>(
+            builder: (context, state) {
+              return InteractiveMap(
+                onTap: (pos) => _mapTap(context, pos),
+                mapType: state.mapType,
+                center: const LatLng(
+                    52.283954, 8.0225185), // TODO: real data & state management
+                markers: const [
+                  LatLng(52.29, 8.023), // TODO: real data & state management
+                ],
+                polylines: state.shownOSMSmoothness
+                    ? const [
+                        Polyline([
+                          // TODO: real data & state management
+                          LatLng(52.283954, 8.0225185),
+                          LatLng(52.2839, 8.02251),
+                          LatLng(52.29, 8.023),
+                          LatLng(52.29, 8.026),
+                          LatLng(52.2889, 8.032),
+                        ]),
+                        Polyline.colored([
+                          // TODO: real data & state management
+                          LatLng(52.2832954, 8.0225185),
+                          LatLng(52.2832954, 8.0295185),
+                          LatLng(52.2802954, 8.0235185),
+                          LatLng(52.2812954, 8.0233185),
+                          LatLng(52.2812000, 8.0223185),
+                        ], color: Colors.amber),
+                      ]
+                    : [],
+              );
+            },
+          ),
         ),
         const MessageBannerList(),
         SettingsSheet(
@@ -89,6 +130,12 @@ class _MapState extends State<_MapPage> {
     );
   }
 
+  void _mapTap(BuildContext context, LatLng location) {
+    if (_isExpanded) {
+      _onPressedFAB();
+    }
+  }
+
   void _onPressedFAB() async {
     _controller.removeListener(_listener);
     double target = _isExpanded ? widget._minSize : widget._maxSize;
@@ -108,11 +155,5 @@ class _MapState extends State<_MapPage> {
     double size = _controller.pixelsToSize(_controller.pixels);
     _isExpanded = size > _threshold;
     setState(() => _bottom = widget._baseOffset + _controller.pixels);
-  }
-
-  void _mapTap(location) {
-    if (_isExpanded) {
-      _onPressedFAB();
-    }
   }
 }

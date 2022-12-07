@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/map/map_type.dart';
-import '../../../logic/map_settings/map_settings_bloc.dart';
+import '../../../logic/map/settings/map_settings_bloc.dart';
 import 'map_type_toggle.dart';
 
 class MapTypeSelectionButtons extends StatelessWidget {
