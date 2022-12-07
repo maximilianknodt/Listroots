@@ -7,9 +7,12 @@ import '../../logic/auth/auth_bloc.dart';
 import '../../logic/map/messaging/map_messaging_bloc.dart';
 import '../../logic/map/settings/map_settings_bloc.dart';
 import '../widgets/map/interactive_map.dart';
-import 'message_banner_list.dart';
+import '../../logic/geo/gps/gps_bloc.dart';
+import 'buttons/focus_gps_pos_fab.dart';
+import 'buttons/tune_fab.dart';
+import 'map_page_map.dart';
+import 'message_banners/message_banner_list.dart';
 import 'settings/settings_sheet.dart';
-import 'tune_fab.dart';
 
 class Map extends StatelessWidget {
   const Map({super.key});
@@ -23,6 +26,7 @@ class Map extends StatelessWidget {
           final authBloc = context.read<AuthBloc>();
           return MapMessagingBloc(authBloc: authBloc);
         }),
+        BlocProvider(create: (context) => GpsBloc()..add(InitGpsStream())),
       ],
       child: const _MapPage(),
     );
@@ -70,7 +74,7 @@ class _MapState extends State<_MapPage> {
               return InteractiveMap(
                 onTap: (pos) => _mapTap(context, pos),
                 mapType: state.mapType,
-                location: const LatLng(
+                center: const LatLng(
                     52.283954, 8.0225185), // TODO: real data & state management
                 markers: const [
                   LatLng(52.29, 8.023), // TODO: real data & state management
@@ -109,9 +113,17 @@ class _MapState extends State<_MapPage> {
           curve: Curves.easeInOut,
           duration: _animationDuration,
           padding: EdgeInsets.only(bottom: _bottom, right: widget._baseOffset),
-          child: TuneFAB(
-            isOpen: _isExpanded,
-            onPressed: _onPressedFAB,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FocusGpsPosFAB(isOpen: _isExpanded),
+              SizedBox(height: 10),
+              TuneFAB(
+                isOpen: _isExpanded,
+                onPressed: _onPressedFAB,
+              ),
+            ],
           ),
         ),
       ],

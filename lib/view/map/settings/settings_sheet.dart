@@ -72,8 +72,7 @@ class SettingsSheet extends StatelessWidget {
                               title: "eigene Detektionen", // TODO: i18n
                               subtitle:
                                   "von dir selbst detektierte Schäden", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleOwnDetections(),
+                              event: const ToggleOwnDetectionsEvent(),
                               selected: showOwn,
                             ),
                             CheckboxMapSetting(
@@ -81,14 +80,12 @@ class SettingsSheet extends StatelessWidget {
                                   "Detektionen von listroots-Nutzern", // TODO: i18n
                               subtitle:
                                   "durch Dritte dokumentierte Schäden", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleForeignDetections(),
+                              event: const ToggleForeignDetectionsEvent(),
                               selected: showForeign,
                             ),
                             CheckboxMapSetting(
                               title: "OpenStreetMap Smoothness", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleOsmSmoothness(),
+                              event: const ToggleOsmSmoothnessEvent(),
                               selected: showOsm,
                             ),
                           ],

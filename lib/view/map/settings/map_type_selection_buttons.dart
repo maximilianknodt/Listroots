@@ -23,7 +23,7 @@ class MapTypeSelectionButtons extends StatelessWidget {
           onPressed: (index) {
             final newMapType = MapType.values[index];
             BlocProvider.of<MapSettingsBloc>(context).add(
-              MapSettingsEventSetMapType(newMapType),
+              SetMapTypeEvent(newMapType),
             );
           },
           isSelected: MapType.values.map((e) => e == mapType).toList(),

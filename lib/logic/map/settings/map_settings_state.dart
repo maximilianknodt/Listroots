@@ -6,12 +6,16 @@ class MapSettingsState {
   final bool shownOwnDetections;
   final bool shownForeignDetections;
   final bool shownOSMSmoothness;
+  final LatLng? center;
+  final bool loadingPosition;
 
   const MapSettingsState({
     required this.mapType,
     required this.shownOwnDetections,
     required this.shownForeignDetections,
     required this.shownOSMSmoothness,
+    this.center,
+    this.loadingPosition = false,
   });
 
   MapSettingsState copyWith({
@@ -19,6 +23,8 @@ class MapSettingsState {
     bool? shownOwnDetections,
     bool? shownForeignDetections,
     bool? shownOSMSmoothness,
+    LatLng? center,
+    bool? loadingPosition,
   }) {
     return MapSettingsState(
       mapType: mapType ?? this.mapType,
@@ -26,6 +32,8 @@ class MapSettingsState {
       shownForeignDetections:
           shownForeignDetections ?? this.shownForeignDetections,
       shownOSMSmoothness: shownOSMSmoothness ?? this.shownOSMSmoothness,
+      center: center ?? this.center,
+      loadingPosition: loadingPosition ?? this.loadingPosition,
     );
   }
 }
@@ -37,6 +45,8 @@ class MapSettingsInitial extends MapSettingsState {
           shownOwnDetections: true,
           shownForeignDetections: true,
           shownOSMSmoothness: true,
+          center: const LatLng(0, 0),
+          loadingPosition: false,
         );
 }
 
@@ -47,5 +57,6 @@ class MapSettingsLoaded extends MapSettingsState {
           shownOwnDetections: settings.shownOwnDetections,
           shownForeignDetections: settings.shownForeignDetections,
           shownOSMSmoothness: settings.shownOSMSmoothness,
+          center: settings.center,
         );
 }

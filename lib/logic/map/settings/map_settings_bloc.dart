@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:latlng/latlng.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/map/map_settings.dart';
@@ -14,16 +17,16 @@ class MapSettingsBloc extends Bloc<MapSettingsEvent, MapSettingsState> {
   MapSettingsBloc()
       : _repository = MapSettingsRepository(),
         super(const MapSettingsInitial()) {
-    on<MapSettingsEventSetMapType>(_setMapType);
-    on<MapSettingsEventToggleOwnDetections>(_toggleOwnDetections);
-    on<MapSettingsEventToggleForeignDetections>(_toggleForeignDetections);
-    on<MapSettingsEventToggleOsmSmoothness>(_toggleOsmSmoothness);
+    on<SetMapTypeEvent>(_setMapType);
+    on<ToggleOwnDetectionsEvent>(_toggleOwnDetections);
+    on<ToggleForeignDetectionsEvent>(_toggleForeignDetections);
+    on<ToggleOsmSmoothnessEvent>(_toggleOsmSmoothness);
+    on<SetMapCenterEvent>(_setMapCenter);
 
     _loadSettings();
   }
 
-  void _setMapType(
-      MapSettingsEventSetMapType event, Emitter<MapSettingsState> emit) {
+  void _setMapType(SetMapTypeEvent event, Emitter<MapSettingsState> emit) {
     emit(state.copyWith(mapType: event.mapType));
     _saveSettings();
   }
@@ -51,5 +54,13 @@ class MapSettingsBloc extends Bloc<MapSettingsEvent, MapSettingsState> {
   Future<void> _loadSettings() async {
     MapSettings settings = await _repository.loadSettings();
     emit(MapSettingsLoaded(settings));
+  }
+
+  FutureOr<void> _setMapCenter(event, Emitter<MapSettingsState> emit) {
+    if (event.loading) {
+      emit(state.copyWith(loadingPosition: true));
+    } else {
+      emit(state.copyWith(center: event.center, loadingPosition: false));
+    }
   }
 }

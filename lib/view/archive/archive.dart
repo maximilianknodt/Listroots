@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listroots/view/archive/archive_listelement.dart';
 
 import '../widgets/general/section.dart';
 
@@ -7,72 +8,49 @@ class Archive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Section(
-            title: "kontinuierliche Aufzeichnungen",
-            leading: Icon(Icons.videocam_outlined),
-            trailing: IconButton(
-              icon: Icon(Icons.upload_outlined),
-              onPressed: () {},
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // TODO: diese austauschen @Thorben
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-              ],
-            ),
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              ArchiveListelement(
+                date: "22.10.22 13:37 Uhr",
+                value: "0:37h, 3 Detektionen",
+              ),
+              SizedBox(height: 5),
+              ArchiveListelement(
+                date: "23.10.22 14:37 Uhr",
+                value: "1:15h, 2 Detektionen",
+              ),
+              SizedBox(height: 5),
+              ArchiveListelement(
+                date: "23.10.22 18:00 Uhr",
+                value: "0:20h, 3 Detektionen",
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Section(
-            title: "manuelle Dokumentationen",
-            leading: Icon(Icons.linked_camera_outlined),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // TODO: diese austauschen @Thorben
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text("Aufzeichnung 1"),
-                  subtitle: Text("12.12.2020"),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {},
-                ),
-              ],
-            ),
+        ),
+        SizedBox(height: 40),
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ArchiveListelement(
+                date: "22.10.22 13:37 Uhr",
+                value: "80% Konfidenz",
+              ),
+              SizedBox(height: 5),
+              ArchiveListelement(
+                date: "22.10.22 13:37 Uhr",
+                value: "70% Konfidenz",
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
