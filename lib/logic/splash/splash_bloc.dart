@@ -11,5 +11,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   void _navigatetohome(SplashShown event, Emitter<SplashState> emit) async {
     await Future.delayed(const Duration(seconds: 3));
+    emit(EndSplash());
   }
 }
