@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlng/latlng.dart';
 
 import '../../data/map/polyline.dart';
-import '../../logic/map_settings/map_settings_bloc.dart';
+import '../../logic/map/settings/map_settings_bloc.dart';
 import '../widgets/map/interactive_map.dart';
 
 class MapPageMap extends StatelessWidget {
