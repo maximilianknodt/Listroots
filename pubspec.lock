@@ -224,6 +224,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  functions_client:
+    dependency: transitive
+    description:
+      name: functions_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   geolocator:
     dependency: "direct main"
     description:
@@ -266,13 +273,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
-  functions_client:
-    dependency: transitive
-    description:
-      name: functions_client
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   go_router:
     dependency: "direct main"
     description:
