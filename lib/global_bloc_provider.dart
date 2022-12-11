@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:listroots/logic/auth/auth_bloc.dart';
+import 'logic/auth/auth_bloc.dart';
+import 'logic/mode/photo/photo_bloc.dart';
 
 import 'logic/navigation/navigation_bloc_bloc.dart';
+import 'logic/archive/archive_bloc.dart';
 
 /// The top most location for [BlocProvider]s.
 ///
@@ -19,6 +21,7 @@ class GlobalBlocProvider extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NavigationBloc()),
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => PhotoBloc()),
       ],
       child: child,
     );

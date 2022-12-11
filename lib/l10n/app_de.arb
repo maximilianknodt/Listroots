@@ -1,4 +1,21 @@
 {
     "helloworld": "Hallo Welt",
-    "aufzeichnungStartenBtn": "Aufzeichnung starten"
+    "startRecording": "Aufzeichnung starten",
+    "analyseStreet": "analysiere Fahrbahn und ermittle Standort",
+    "manualDocumentation" :"Manuell dokumentieren",
+    "damageFound": "Schaden erkannt",
+    "noDamageFound": "Keine Fahrbahnschäden erkannt",
+    "confidence": "Konfidenz",
+    "position": "Position",
+    "timestamp": "Zeitpunkt",
+    "clock": "Uhr",
+    "damageNotFoundQuestion": "Bist du dir sicher, dass es sich hierbei um einen Fahrbahnschaden (wie Wurzelschaden) handelt und du diese Stelle tatsächlich dokumentieren möchtest?",
+    "documentation": "dokumentieren",
+    "stillDocumentation": "ja, trotzdem dokumentieren",
+    "cancel": "abbrechen",
+    "continuousRecording": "Kontinuierliche Aufzeichnung",
+    "recordPosition": "Position aufzeichnen",
+    "stopRide": "Fahrt stoppen",
+    "recordingActive": "Aufzeichnung läuft ...",
+    "startedAt": "gestartet um"
 }

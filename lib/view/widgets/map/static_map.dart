@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:listroots/view/widgets/map/layer/layer_builder.dart';
-import 'package:listroots/view/widgets/map/map_base.dart';
+import 'layer/layer_builder.dart';
+import 'map_base.dart';
 import 'package:map/map.dart' show MapController, MapLayout;
 
 import '../../../data/map/polyline.dart';
