@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../logic/splash/splash_bloc.dart';
-import '../home/home.dart';
+// import '../home/home.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});

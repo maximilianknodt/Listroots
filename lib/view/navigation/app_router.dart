@@ -11,7 +11,7 @@ import 'fade_page.dart';
 class AppRouter extends GoRouter {
   AppRouter({required BuildContext context})
       : super(
-          initialLocation: '/splash',
+          initialLocation: _initialLocation(context),
           routes: _routes(context),
         );
 
