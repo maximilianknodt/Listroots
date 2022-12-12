@@ -13,12 +13,22 @@ class Supabase_Manager {
     return response;
   }
 
-  Future<void> writeData(int id, String date, double longitude, double latitude) async {
+  Future<void> writeData(
+      int id,
+      String date,
+      double longitude,
+      double latitude,
+      double confidencTotal,
+      double confidenceImage,
+      double confidenceSensor) async {
     await Supabase.instance.client.from('root_damage').insert({
       'user_id': id,
       'date': date,
       'longitude': longitude,
-      'latitude': latitude
+      'latitude': latitude,
+      'confidenceTotal': confidencTotal,
+      'confidenceImage': confidenceImage,
+      'confidenceSensor': confidenceSensor
     });
   }
 }
