@@ -5,4 +5,31 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Provide required visibility configuration for API level 30 and above -->
+    <queries>
+    <!-- If your app checks for SMS support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="https" />
+    </intent>
+    </queries>
+
+    <application>
+    <activity>
+        <!-- Deep Links -->
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
+            <data
+                android:scheme="http"
+                android:scheme="https"
+                android:host="app.listroots.de"
+                android:pathPrefix="/oauth"/>
+        </intent-filter>
+    </activity>
+    </application>
+
 </manifest>

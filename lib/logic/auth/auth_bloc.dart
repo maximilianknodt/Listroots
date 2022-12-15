@@ -7,7 +7,8 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(Authenticated(User())) {
+  // TODO: Remove
+  AuthBloc() : super(Authenticated(User("remove", "remove"))) {
     on<AuthEvent>((event, emit) {
       // TODO: implement event handler
     });
