@@ -10,4 +10,8 @@ class Trip {
   addDetection(Detection det) {
     this.detections.add(det);
   }
+
+  endTrip(DateTime end) {
+    this.end = end;
+  }
 }

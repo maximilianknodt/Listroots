@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:latlng/latlng.dart';
+import 'package:listroots/data/database/detection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Supabase_Manager {
@@ -31,8 +33,8 @@ class Supabase_Manager {
     await Supabase.instance.client.from('root_damage').insert({
       'user_id': id,
       'date': date,
-      'longitude': longitude,
       'latitude': latitude,
+      'longitude': longitude,
       'confidencetotal': confidencTotal,
       'confidenceimage': confidenceImage,
       'confidencesensor': confidenceSensor
