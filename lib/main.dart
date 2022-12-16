@@ -1,11 +1,16 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:listroots/data/auth/authorization_code.dart';
+import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app.dart';
+import 'data/auth/authorization_code_grant.dart';
+import 'data/auth/client.dart';
 import 'data/auth/client_credentials_grant.dart';
 import 'data/auth/utils.dart';
 import 'data/oauth2.dart' as oauth2;
@@ -44,10 +49,6 @@ void main() async {
   //OAuthMain oAuthMain = OAuthMain();
   //oAuthMain.startAuthorization();
 
-  //auth();
-
-  var client = await createClient();
-
   // Once you have a Client, you can use it just like any other HTTP client.
   //print(await client.read(Uri.http('example.com', 'protected-resources.txt')));
 
@@ -82,7 +83,9 @@ void auth() async {
   inspect(client);
 }
 
-Future<oauth2.Client> createClient() async {
+AuthorizationCodeGrant? grant;
+
+Future<oauth2.Client?> createClient() async {
   var exists = await credentialsFile.exists();
 
   // If the OAuth2 credentials have already been saved from a previous run, we
@@ -95,16 +98,21 @@ Future<oauth2.Client> createClient() async {
 
   // If we don't have OAuth2 credentials yet, we need to get the resource owner
   // to authorize us. We're assuming here that we're a command-line application.
-  var grant = oauth2.AuthorizationCodeGrant(
+  grant = oauth2.AuthorizationCodeGrant(
       identifier, authorizationEndpoint, tokenEndpoint,
       secret: secret);
 
   List<String> sc = [scope];
 
+  if (grant == null) {
+    log("grant is null", name: "createClient");
+    return null;
+  }
+
   // A URL on the authorization server (authorizationEndpoint with some
   // additional query parameters). Scopes and state can optionally be passed
   // into this method.
-  var authorizationUrl = grant.getAuthorizationUrl(redirectURL, scopes: sc);
+  var authorizationUrl = grant!.getAuthorizationUrl(redirectURL, scopes: sc);
 
   // Redirect the resource owner to the authorization URL. Once the resource
   // owner has authorized, they'll be redirected to `redirectUrl` with an
@@ -112,28 +120,26 @@ Future<oauth2.Client> createClient() async {
   // another URL which should also have a listener.
   //
   // `redirect` and `listen` are not shown implemented here.
-  await redirect(authorizationUrl);
-  var responseUrl = await listen(redirectURL);
-  log("listen done");
-
-  // Once the user is redirected to `redirectUrl`, pass the query parameters to
-  // the AuthorizationCodeGrant. It will validate them and extract the
-  // authorization code to create a new Client.
-  return grant.handleAuthorizationResponse(responseUrl.queryParameters);
+  await open(authorizationUrl);
+  return null;
 }
 
-Future<void> redirect(Uri url) async {
-  inspect(url);
-  if (!await launchUrl(url)) {
+Future<void> open(Uri url) async {
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
     throw "Could not launch $url";
+  } else {
+    log(name: "open url", url.toString());
   }
 }
 
-Future<Uri> listen(dynamic url) async {
-  inspect(url);
-  if (url.toString().startsWith(redirectURL.toString())) {
-    log(redirectURL.toString());
-    return url;
+Future<void> initUniLinks() async {
+  try {
+    final initialLink = await getInitialLink();
+    inspect(initialLink);
+  } on PlatformException {
+    log("initialLink error");
   }
-  return Uri();
+  // linkStream.listen(listener, onError: (err) {
+  //   log("linksStream error");
+  // });
 }

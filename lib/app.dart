@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'global_bloc_provider.dart';
+import 'main.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
 

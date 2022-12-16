@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listroots/main.dart';
 
 import '../../logic/auth/auth_bloc.dart';
 
@@ -36,8 +37,8 @@ class ProfileIconButton extends StatelessWidget {
     );
   }
 
-  void _onTap() {
-    // TODO: Implement onTap
-    log("tap");
+  void _onTap() async {
+    log("tap", name: "ProfileIconButton");
+    var client = await createClient();
   }
 }
