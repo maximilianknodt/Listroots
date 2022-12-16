@@ -20,8 +20,6 @@ boolean wurdeHochgeladen
 
 Datenmodell für die Fahrten (mit mehreren Datenpunkten) */
 
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:latlng/latlng.dart';
 
 class Detection {
