@@ -14,6 +14,8 @@ import '../drive/recording/active_drive_screen.dart';
 import '../main_scaffold.dart';
 import 'fade_page.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 class AppRouter extends GoRouter {
   AppRouter({required BuildContext context})
       : super(
@@ -114,8 +116,23 @@ class _OAuthScreenState extends State<OAuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          "verifiziere OAuth2",
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 15.0),
+              child: Text(
+                AppLocalizations.of(context)!.oauthVerify,
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).colorScheme.primary),
+            ),
+          ],
         ),
       ),
     );

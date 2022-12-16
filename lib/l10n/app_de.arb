@@ -17,5 +17,6 @@
     "recordPosition": "Position aufzeichnen",
     "stopRide": "Fahrt stoppen",
     "recordingActive": "Aufzeichnung läuft ...",
-    "startedAt": "gestartet um"
+    "startedAt": "gestartet um",
+    "oauthVerify" : "Per OAuth2 verifizieren ..."
 }

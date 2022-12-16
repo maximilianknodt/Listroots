@@ -46,41 +46,8 @@ final String accessToken = "gLBctggrv4RrMFzwaE_rPj9Ppm7vosZr5jd5f5aXExA";
 
 void main() async {
   runApp(const App());
-  //OAuthMain oAuthMain = OAuthMain();
-  //oAuthMain.startAuthorization();
 
-  // Once you have a Client, you can use it just like any other HTTP client.
-  //print(await client.read(Uri.http('example.com', 'protected-resources.txt')));
-
-  // Once we're done with the client, save the credentials file. This ensures
-  // that if the credentials were automatically refreshed while using the
-  // client, the new credentials are available for the next run of the
-  // program.
   //await credentialsFile.writeAsString(client.credentials.toJson());
-}
-
-void auth() async {
-  // -------------
-
-  //getAutCode(authorizationEndpoint, identifier, secret, redirectURL);
-
-  // -------------
-
-  // Parameter, welche als Value an die tokenEndpoint URL formatiert angefuegt werden
-  var paramsGetAccessToken = {
-    "client_id": identifier,
-    "grant_type": 'authorization_code',
-    "code": "JRghhF9P6azIkwlrIPpRRPBn7ZRqzAW_Lt8Wbifzr-I",
-    "redirect_uri": redirectURL.toString(),
-    "client_secret": secret,
-  };
-
-  // Benutzerspezifische URL fuer das Erhalten des AccesTokens
-  final Uri urlGetToken =
-      addQueryParameters(tokenEndpoint, paramsGetAccessToken);
-
-  var client = await clientCredentialsGrant(urlGetToken, identifier, secret);
-  inspect(client);
 }
 
 AuthorizationCodeGrant? grant;
@@ -114,12 +81,6 @@ Future<oauth2.Client?> createClient() async {
   // into this method.
   var authorizationUrl = grant!.getAuthorizationUrl(redirectURL, scopes: sc);
 
-  // Redirect the resource owner to the authorization URL. Once the resource
-  // owner has authorized, they'll be redirected to `redirectUrl` with an
-  // authorization code. The `redirect` should cause the browser to redirect to
-  // another URL which should also have a listener.
-  //
-  // `redirect` and `listen` are not shown implemented here.
   await open(authorizationUrl);
   return null;
 }
@@ -130,16 +91,4 @@ Future<void> open(Uri url) async {
   } else {
     log(name: "open url", url.toString());
   }
-}
-
-Future<void> initUniLinks() async {
-  try {
-    final initialLink = await getInitialLink();
-    inspect(initialLink);
-  } on PlatformException {
-    log("initialLink error");
-  }
-  // linkStream.listen(listener, onError: (err) {
-  //   log("linksStream error");
-  // });
 }
