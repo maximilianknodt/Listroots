@@ -30,22 +30,9 @@ class Detection {
   double confidenceTotal;
   double confidenceImage;
   double confidenceSensor;
-  String? deviceID = _getId() as String?;
+  String deviceID;
 
   //TODO: deviceID muss zugewiesen werden
   Detection(this.position, this.time, this.confidenceTotal,
-      this.confidenceImage, this.confidenceSensor);
-
-  static Future<String?> _getId() async {
-    var deviceInfo = DeviceInfoPlugin();
-    String? deviceID;
-    if (Platform.isIOS) {
-      var iosInfo = await deviceInfo.iosInfo;
-      deviceID = iosInfo.identifierForVendor;
-    } else if (Platform.isAndroid) {
-      var androidDeviceInfo = await deviceInfo.androidInfo;
-      deviceID = androidDeviceInfo.id;
-    }
-    return deviceID;
-  }
+      this.confidenceImage, this.confidenceSensor, this.deviceID);
 }
