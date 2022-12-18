@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:listroots/data/database/database_main.dart';
+
 import 'global_bloc_provider.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
 import 'view/splash/splash.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final Supabase_Manager supabase = Supabase_Manager();
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {

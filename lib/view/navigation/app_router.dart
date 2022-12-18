@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../data/navigation/bottom_navigation_destination.dart';
 import '../../logic/navigation/navigation_bloc_bloc.dart';
+import '../drive/documenting/documenting.dart';
+import '../drive/documenting/resultscreen.dart';
+import '../drive/recording/active_drive_screen.dart';
 import '../main_scaffold.dart';
 import '../splash/splash.dart';
 import 'fade_page.dart';
@@ -21,6 +24,19 @@ class AppRouter extends GoRouter {
         path: '/splash',
         builder: (context, state) => const Splash(),
       ),
+      // Drive Routes
+      GoRoute(
+        path: '/recording',
+        builder: (context, state) => const ActiveDriveScreen(),
+      ),
+      GoRoute(
+        path: '/documenting',
+        builder: (context, state) => const Documenting(),
+      ),
+      GoRoute(
+        path: '/result',
+        builder: (context, state) => Resultscreen(),
+      ),
 
       // Bottom Navigation Routes (Home, Drive, Map, Archive)
       ..._destinations(context).map((element) {
@@ -30,9 +46,10 @@ class AppRouter extends GoRouter {
           pageBuilder: (context, state) => FadeTransitionPage(
             key: state.pageKey,
             child: MainScaffold(
-                action: element.action?.call(context),
-                title: Text(element.label),
-                child: element.destination(context)),
+              action: element.action?.call(context),
+              title: Text(element.label),
+              child: element.destination(context),
+            ),
           ),
         );
       }).toList(),

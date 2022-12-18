@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/map_settings/map_settings_bloc.dart';
+import '../../../logic/map/settings/map_settings_bloc.dart';
 
 class CheckboxMapSetting extends StatelessWidget {
   const CheckboxMapSetting({

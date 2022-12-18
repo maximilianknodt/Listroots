@@ -47,7 +47,14 @@
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+<<<<<<< HEAD
 		<key>UIStatusBarHidden</key>
 		<false/>
+=======
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Aufzeichnung von Schäden</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Hintergrundaufzeichnung von Schäden</string>
+>>>>>>> main
 	</dict>
 </plist>

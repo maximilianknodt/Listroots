@@ -74,9 +74,12 @@ class AppColorTheme {
           fillColor: MaterialStateProperty.all(_primary),
           checkColor: MaterialStateProperty.all(_primaryContainer),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: _primary,
           foregroundColor: _canvas,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
         scaffoldBackgroundColor: _background,
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_lightColorSheme),
@@ -98,6 +101,7 @@ class AppColorTheme {
             minWidth: 50,
           ),
         ),
+        cardTheme: _cardTheme,
       );
 
   ThemeData get darkTheme => ThemeData(
@@ -110,9 +114,12 @@ class AppColorTheme {
           fillColor: MaterialStateProperty.all(_primaryDark),
           checkColor: MaterialStateProperty.all(_primaryContainerDark),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: _primaryDark,
           foregroundColor: _canvasDark,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
         bottomNavigationBarTheme: _bottomNavigationBarTheme(_darkColorScheme),
         scaffoldBackgroundColor: _darkColorScheme.background,
@@ -123,6 +130,14 @@ class AppColorTheme {
         textButtonTheme: _textButtonTheme(const Color(
             0xFF29341D)), // TODO: use _primaryContainerDark after merge
         outlinedButtonTheme: OutlinedButtonThemeData(style: _baseButtonStyle),
+        cardTheme: _cardTheme,
+      );
+
+  CardTheme get _cardTheme => CardTheme(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
       );
 
   TextTheme get _textTheme => TextTheme(

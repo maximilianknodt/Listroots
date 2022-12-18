@@ -45,6 +45,7 @@ class MapSettingsRepository {
       shownOwnDetections: shownOwnDetections ?? true,
       shownForeignDetections: shownForeignDetections ?? true,
       shownOSMSmoothness: shownOSMSmoothness ?? true,
+      center: null,
     );
   }
 }

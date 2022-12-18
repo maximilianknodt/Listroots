@@ -1,28 +1,29 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart' show MapController;
 
 import '../../../data/map/map_type.dart';
 import '../../../data/map/polyline.dart';
-import 'current_location_marker_dot.dart';
 import 'interactive_map_viewer.dart';
 import 'layer/color_filtered_map_tile_layer.dart';
+import 'layer/gps_location_layer.dart';
 import 'layer/map_tile_layer.dart';
 import 'layer/marker_layer.dart';
 import 'layer/polyline_layer.dart';
-import 'layer/single_location_layer.dart';
 import 'map_base.dart';
 
 class InteractiveMap extends MapBase {
   const InteractiveMap({
     super.key,
-    LatLng? location,
+    super.center,
     super.zoom,
     this.onTap,
     super.markers,
     super.polylines,
     this.mapType = MapType.osmThemed,
-  }) : super(center: location ?? const LatLng(52.283954, 8.0225185));
+  });
 
   final Function(LatLng location)? onTap;
   final MapType mapType;
@@ -31,7 +32,7 @@ class InteractiveMap extends MapBase {
   Widget build(BuildContext context) {
     return _InteractiveMapDyn(
       key: key,
-      location: center,
+      center: center,
       zoom: zoom,
       onTap: onTap,
       markers: markers ?? [],
@@ -42,7 +43,7 @@ class InteractiveMap extends MapBase {
 }
 
 class _InteractiveMapDyn extends StatefulWidget {
-  final LatLng location;
+  final LatLng center;
   final double zoom;
   final Function(LatLng location)? onTap;
   final List<LatLng> markers;
@@ -51,7 +52,7 @@ class _InteractiveMapDyn extends StatefulWidget {
 
   const _InteractiveMapDyn({
     Key? key,
-    this.location = const LatLng(52.283954, 8.0225185),
+    this.center = const LatLng(52.283954, 8.0225185),
     this.zoom = 15,
     this.onTap,
     this.markers = const [],
@@ -60,7 +61,9 @@ class _InteractiveMapDyn extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<_InteractiveMapDyn> createState() => _InteractiveMapDynState();
+  State<_InteractiveMapDyn> createState() {
+    return _InteractiveMapDynState();
+  }
 }
 
 class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
@@ -69,9 +72,10 @@ class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
   @override
   void initState() {
     controller = MapController(
-      location: widget.location,
+      location: widget.center,
       zoom: widget.zoom,
     );
+    log('MapController initialized');
     controller.addListener(() => setState(() {}));
     super.initState();
   }
@@ -91,12 +95,8 @@ class _InteractiveMapDynState extends State<_InteractiveMapDyn> {
           markers: widget.markers,
           backgroundColor: widget.mapType.backgroundColor,
         ),
-        SingleLocationLayer(
-          location: widget.location,
-          builder: (_, offset) => CurrentLocationMarkerDot(
-            offset: offset,
-            backgroundColor: widget.mapType.backgroundColor,
-          ),
+        GpsLocationLayer(
+          backgroundColor: widget.mapType.backgroundColor,
         ),
       ],
     );
