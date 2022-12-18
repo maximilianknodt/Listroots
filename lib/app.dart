@@ -6,6 +6,7 @@ import 'package:listroots/data/database/database_main.dart';
 import 'global_bloc_provider.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
+import 'view/splash/splash.dart';
 
 class App extends StatelessWidget {
   final Supabase_Manager supabase = Supabase_Manager();

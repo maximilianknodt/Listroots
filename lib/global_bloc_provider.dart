@@ -4,6 +4,7 @@ import 'logic/auth/auth_bloc.dart';
 import 'logic/mode/photo/photo_bloc.dart';
 
 import 'logic/navigation/navigation_bloc_bloc.dart';
+import 'logic/splash/splash_bloc.dart';
 import 'logic/archive/archive_bloc.dart';
 
 /// The top most location for [BlocProvider]s.
@@ -21,6 +22,7 @@ class GlobalBlocProvider extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NavigationBloc()),
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => SplashBloc()),
         BlocProvider(create: (context) => PhotoBloc()),
       ],
       child: child,

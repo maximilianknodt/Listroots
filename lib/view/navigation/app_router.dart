@@ -8,6 +8,7 @@ import '../drive/documenting/documenting.dart';
 import '../drive/documenting/resultscreen.dart';
 import '../drive/recording/active_drive_screen.dart';
 import '../main_scaffold.dart';
+import '../splash/splash.dart';
 import 'fade_page.dart';
 
 class AppRouter extends GoRouter {
@@ -19,6 +20,10 @@ class AppRouter extends GoRouter {
 
   static List<RouteBase> _routes(BuildContext context) {
     return [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const Splash(),
+      ),
       // Drive Routes
       GoRoute(
         path: '/recording',
