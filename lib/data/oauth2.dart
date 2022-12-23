@@ -5,7 +5,5 @@
 export 'auth/authorization_code_grant.dart';
 export 'auth/authorization_exception.dart';
 export 'auth/client.dart';
-export 'auth/client_credentials_grant.dart';
 export 'auth/credentials.dart';
 export 'auth/expiration_exception.dart';
-export 'auth/resource_owner_password_grant.dart';
