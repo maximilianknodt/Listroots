@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.hsos.listroots">
+
    <application
         android:label="listroots"
         android:name="${applicationName}"
@@ -26,7 +27,7 @@
             </intent-filter>
 
             <!-- App Links -->
-            <meta-data android:name="flutter_applinking_enabled" android:value="true" />
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -35,20 +36,6 @@
                 <data
                     android:scheme="https"
                     android:host="listroots.web.app"
-                />
-            </intent-filter>
-
-            <!-- Deep Links -->
-            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-                <data
-                    android:scheme="https"
-                    android:host="app.listroots.de"
-                    android:pathPrefix="/oauth"
                 />
             </intent-filter>
         </activity>

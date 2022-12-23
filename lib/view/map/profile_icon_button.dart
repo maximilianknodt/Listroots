@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:listroots/main.dart';
 
 import '../../logic/auth/auth_bloc.dart';
 
@@ -14,7 +13,9 @@ class ProfileIconButton extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return InkWell(
-          onTap: _onTap,
+          onTap: state is Unauthenticated
+              ? () => BlocProvider.of<AuthBloc>(context).add(AuthEventVerify())
+              : () => log("Authentifiziert"), // TODO: Pop-Up mit Nachricht
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 12),
             padding: const EdgeInsets.all(8),
@@ -25,7 +26,7 @@ class ProfileIconButton extends StatelessWidget {
             child: Center(
               child: state is Authenticated
                   ? Text(
-                      state.user.initials,
+                      state.client.initials,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Theme.of(context).colorScheme.primary),
                     )
@@ -35,10 +36,5 @@ class ProfileIconButton extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _onTap() async {
-    log("tap", name: "ProfileIconButton");
-    var client = await createClient();
   }
 }

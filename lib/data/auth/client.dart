@@ -75,6 +75,8 @@ class Client extends http.BaseClient {
   /// The underlying HTTP client.
   http.Client? _httpClient;
 
+  String get initials => "ls/";
+
   /// Creates a new client from a pre-existing set of credentials.
   ///
   /// When authorizing a client for the first time, you should use

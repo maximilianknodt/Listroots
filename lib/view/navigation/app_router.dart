@@ -1,20 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:listroots/logic/auth/auth_bloc.dart';
 
-import '../../data/auth/client.dart';
 import '../../data/navigation/bottom_navigation_destination.dart';
+import '../oauth/oauth_screen.dart';
 import '../../logic/navigation/navigation_bloc_bloc.dart';
-import '../../main.dart';
 import '../drive/documenting/documenting.dart';
 import '../drive/documenting/resultscreen.dart';
 import '../drive/recording/active_drive_screen.dart';
 import '../main_scaffold.dart';
 import 'fade_page.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class AppRouter extends GoRouter {
   AppRouter({required BuildContext context})
@@ -40,7 +36,8 @@ class AppRouter extends GoRouter {
         path: '/oauth/:code',
         builder: (context, state) {
           String code = state.params["code"] ?? "";
-          return OAuthScreen(code);
+          BlocProvider.of<AuthBloc>(context).add(AuthEventCompleted(code));
+          return OAuthScreen();
         },
       ),
       // Drive Routes
@@ -90,63 +87,5 @@ class AppRouter extends GoRouter {
 
   static bool isOauth2Redirect(Map<String, String> queryParams) {
     return queryParams.keys.contains("code");
-  }
-}
-
-// TODO: move to own file
-class OAuthScreen extends StatefulWidget {
-  const OAuthScreen(this.code, {super.key});
-
-  final String code;
-
-  @override
-  State<OAuthScreen> createState() => _OAuthScreenState();
-}
-
-class _OAuthScreenState extends State<OAuthScreen> {
-  Client? client;
-
-  @override
-  void initState() {
-    super.initState();
-    listener(widget.code);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15.0),
-              child: Text(
-                AppLocalizations.of(context)!.oauthVerify,
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.primary),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void listener(String code) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    if (grant != null) {
-      log("code: $code", name: "OAuthScreen");
-      var resClient = await grant!.handleAuthorizationResponse({"code": code});
-      inspect(resClient);
-      log(resClient.credentials.accessToken);
-      setState(() => client = resClient);
-      if (client != null) context.go(AppRouter.initialLocation(context));
-    }
   }
 }
