@@ -10,8 +10,6 @@ import '../oauth2.dart' as oauth2;
 
 class OAuthMain {
   File? credentialsFile;
-  // File('/data/user/0/de.hsos.listroots/app_flutter/credentials.json');
-  //('/data/data/de.hsos.listroots/credentials.json');
 
 // Default-URL fuer das Erhalten des Autorisierungs-Codes
   final Uri authorizationEndpoint =
@@ -51,12 +49,12 @@ class OAuthMain {
 
   /// Clienterzeugung durch AuthorizationGrant starten
   Future<oauth2.Client?> createClient() async {
-    // Falls Credentials schon vorhanden -> laden und Client zurueckgeben
+    // Falls Credentials schon vorhanden, diese laden und Client zurueckgeben
     if (await credentialsExist()) {
       return await loadClient();
     }
 
-    // Falls Credentials nicht vorhanden -> muss uns OSM authorisieren
+    // Falls Credentials nicht vorhanden, muss uns OSM authorisieren
     grant = oauth2.AuthorizationCodeGrant(
         identifier, authorizationEndpoint, tokenEndpoint,
         secret: secret);
