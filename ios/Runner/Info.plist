@@ -48,20 +48,30 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<!-- Deep Linking -->
-	<key>FlutterDeepLinkingEnabled</key>
-	<true/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>listroots.web.app</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>https</string>
-			</array>
-		</dict>
-	</array>
+        <key>FlutterDeepLinkingEnabled</key>
+        <true/>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>oauth</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>de.hsos.listroots</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>de.hsos.listroots</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>https</string>
+                </array>
+            </dict>
+        </array>
 </dict>
 </plist>

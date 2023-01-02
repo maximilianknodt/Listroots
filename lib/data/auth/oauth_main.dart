@@ -22,7 +22,9 @@ class OAuthMain {
 // Redirect URL, an die der Token gesendet werden soll
 // Wird per Intent-Filter freigeschaltet,
 // damit Antworten an diese Adresse in der App bearbeitet werden koennen
-  final Uri redirectURL = Uri.parse("https://listroots.web.app");
+  Uri get redirectURL => Platform.isIOS
+      ? Uri.parse("de.hsos.listroots://oauth")
+      : Uri.parse("https://listroots.web.app/");
 
 // Client ID, Client Secret und Scope durch Anmeldung der App im OSM Account erhalten
   final String identifier = 'JA-kNEC9Tdxz127PLPgb_6i3QPzxz87ifyn9JN056W0';
