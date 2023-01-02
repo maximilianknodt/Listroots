@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:listroots/logic/auth/auth_bloc.dart';
 
 import 'data/auth/client.dart';
 import 'data/auth/oauth_main.dart';
+import 'data/database/database_main.dart';
 import 'global_bloc_provider.dart';
-import 'main.dart';
+import 'logic/auth/auth_bloc.dart';
 import 'theme.dart';
 import 'view/navigation/app_router.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final Supabase_Manager supabase = Supabase_Manager();
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {

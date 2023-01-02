@@ -8,7 +8,7 @@ import '../../view/drive/drive.dart';
 import '../../view/home/home.dart';
 import '../../view/home/info_button.dart';
 import '../../view/map/map.dart';
-import '../../view/map/profile_icon_button.dart';
+import '../../view/map/buttons/profile_icon_button.dart';
 
 part 'navigation_bloc_event.dart';
 part 'navigation_bloc_state.dart';

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:listroots/logic/auth/auth_bloc.dart';
 
 import '../../data/navigation/bottom_navigation_destination.dart';
-import '../oauth/oauth_screen.dart';
+import '../../logic/auth/auth_bloc.dart';
 import '../../logic/navigation/navigation_bloc_bloc.dart';
 import '../drive/documenting/documenting.dart';
 import '../drive/documenting/resultscreen.dart';
 import '../drive/recording/active_drive_screen.dart';
 import '../main_scaffold.dart';
+import '../oauth/oauth_screen.dart';
+import '../splash/splash.dart';
 import 'fade_page.dart';
 
 class AppRouter extends GoRouter {
@@ -39,6 +40,11 @@ class AppRouter extends GoRouter {
           BlocProvider.of<AuthBloc>(context).add(AuthEventCompleted(code));
           return OAuthScreen();
         },
+      ),
+
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const Splash(),
       ),
       // Drive Routes
       GoRoute(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/map_settings/map_settings_bloc.dart';
+import '../../../logic/map/settings/map_settings_bloc.dart';
 import 'checkbox_map_setting.dart';
 import 'map_type_selection_buttons.dart';
 
@@ -72,8 +72,7 @@ class SettingsSheet extends StatelessWidget {
                               title: "eigene Detektionen", // TODO: i18n
                               subtitle:
                                   "von dir selbst detektierte Schäden", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleOwnDetections(),
+                              event: const ToggleOwnDetectionsEvent(),
                               selected: showOwn,
                             ),
                             CheckboxMapSetting(
@@ -81,14 +80,12 @@ class SettingsSheet extends StatelessWidget {
                                   "Detektionen von listroots-Nutzern", // TODO: i18n
                               subtitle:
                                   "durch Dritte dokumentierte Schäden", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleForeignDetections(),
+                              event: const ToggleForeignDetectionsEvent(),
                               selected: showForeign,
                             ),
                             CheckboxMapSetting(
                               title: "OpenStreetMap Smoothness", // TODO: i18n
-                              event:
-                                  const MapSettingsEventToggleOsmSmoothness(),
+                              event: const ToggleOsmSmoothnessEvent(),
                               selected: showOsm,
                             ),
                           ],
